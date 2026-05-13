@@ -35,7 +35,7 @@ export function Header({
       provider: "discord",
       options: {
         redirectTo:
-  `${window.location.origin}/auth/callback`,
+  `${window.location.origin}/auth/callback?next=/admin`,
       },
     });
 
