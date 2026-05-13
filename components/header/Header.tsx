@@ -285,6 +285,24 @@ export function Header({
             }
           </span>
 
+          <Link
+  href="/admin"
+  className="
+    bg-[#111]
+    border
+    border-red-900
+    hover:border-red-500
+    transition
+    px-4
+    py-2
+    rounded-xl
+    text-white
+    font-bold
+  "
+>
+  Admin
+</Link>
+
           <button
             onClick={logout}
             className="
