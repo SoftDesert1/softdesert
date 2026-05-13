@@ -1,10 +1,19 @@
+"use client";
+
 import Image from "next/image";
+
 import Link from "next/link";
 
+import { motion } from "framer-motion";
+
 interface NewsCardProps {
+
   title: string;
+
   description: string;
+
   image: string;
+
   slug: string;
 }
 
@@ -14,24 +23,62 @@ export function NewsCard({
   image,
   slug,
 }: NewsCardProps) {
+
   return (
-    <div
+
+    <motion.div
+
+      whileHover={{
+        y: -8,
+      }}
+
+      transition={{
+        duration: 0.25,
+      }}
+
       className="
         group
+        relative
         bg-[#111]
-        border border-red-900/40
-        rounded-2xl
+        border
+        border-red-900/40
+        rounded-3xl
         overflow-hidden
         transition-all
-        duration-300
+        duration-500
         hover:border-red-500
-        hover:shadow-[0_0_25px_rgba(255,0,0,0.25)]
+        hover:shadow-[0_0_35px_rgba(255,0,0,0.25)]
       "
     >
 
+      {/* GLOW */}
+
+      <div
+        className="
+          absolute
+          inset-0
+          opacity-0
+          group-hover:opacity-100
+          transition
+          duration-500
+          bg-gradient-to-t
+          from-red-900/10
+          to-transparent
+          pointer-events-none
+          z-10
+        "
+      />
+
       {/* IMAGE */}
 
-      <div className="relative w-full h-56 overflow-hidden">
+      <div
+        className="
+          relative
+          w-full
+          h-64
+          overflow-hidden
+        "
+      >
 
         <Image
           src={image}
@@ -40,8 +87,18 @@ export function NewsCard({
           className="
             object-cover
             transition-transform
-            duration-500
+            duration-700
             group-hover:scale-110
+          "
+        />
+
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-t
+            from-black/70
+            to-transparent
           "
         />
 
@@ -49,42 +106,70 @@ export function NewsCard({
 
       {/* CONTENT */}
 
-      <div className="p-5 space-y-4">
+      <div
+        className="
+          relative
+          z-20
+          p-6
+          space-y-5
+        "
+      >
 
         <h2
           className="
             text-2xl
-            font-bold
+            font-black
             text-white
-            group-hover:text-red-500
+            leading-tight
             transition
+            duration-300
+            group-hover:text-red-500
           "
         >
           {title}
         </h2>
 
-        <p className="text-gray-400">
+        <p
+          className="
+            text-gray-400
+            line-clamp-3
+            leading-relaxed
+          "
+        >
           {description}
         </p>
 
         <Link
-  href={`/post/${slug}`}
-  className="
-    inline-block
-    bg-red-600
-    hover:bg-red-700
-    transition
-    px-4
-    py-2
-    rounded-lg
-    text-white
-  "
->
-  Ler mais
-</Link>
+          href={`/post/${slug}`}
+          className="
+            inline-flex
+            items-center
+            gap-2
+            bg-red-600
+            hover:bg-red-700
+            transition
+            px-5
+            py-3
+            rounded-xl
+            text-white
+            font-bold
+          "
+        >
+          Ler mais
+
+          <span
+            className="
+              transition
+              group-hover:translate-x-1
+            "
+          >
+            →
+          </span>
+
+        </Link>
 
       </div>
 
-    </div>
+    </motion.div>
   );
 }
