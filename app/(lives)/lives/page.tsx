@@ -6,18 +6,18 @@ const streamers = [
   {
     id: 1,
 
-    name: "Streamer 1",
+    name: "OneTapinha",
 
-    platform: "Twitch",
+    platform: "Kick",
 
     description:
       "Main Berserker PvP",
 
     embed:
-      "https://player.twitch.tv/?channel=shroud&parent=localhost",
+      "https://player.kick.com/onetapinha?muted=true",
 
     url:
-      "https://twitch.tv/shroud",
+      "https://kick.com/onetapinha",
   },
 
   {
