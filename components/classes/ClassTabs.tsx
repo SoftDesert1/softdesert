@@ -1,8 +1,4 @@
 "use client";
-
-import { useState }
-from "react";
-
 import ReactMarkdown
 from "react-markdown";
 
@@ -15,196 +11,133 @@ export function ClassTabs({
   sections,
 }: ClassTabsProps) {
 
-  const types =
-    [...new Set(
-
-      sections.map(
-        (section) =>
-          section.type
-      )
-
-    )];
-
-  const [activeTab, setActiveTab] =
-    useState(
-      types[0]
-    );
-
-  const filteredSections =
-    sections.filter(
-      (section) =>
-        section.type === activeTab
-    );
-
   return (
 
     <div className="space-y-8">
 
-      {/* TABS */}
+      {sections.map((section) => (
 
-      <div
-        className="
-          flex
-          flex-wrap
-          gap-4
-        "
-      >
+        <section
+          key={section.id}
+          className="
+            bg-[#111]
+            border
+            border-red-900
+            rounded-3xl
+            overflow-hidden
+          "
+        >
 
-        {types.map((type) => (
+          {/* IMAGE */}
 
-          <button
-            key={type}
+          {section.image && (
 
-            onClick={() =>
-              setActiveTab(type)
-            }
+            <div
+              className="
+                relative
+                w-full
+                h-[400px]
+              "
+            >
 
-            className={`
-              px-6
-              py-3
-              rounded-2xl
-              font-bold
-              uppercase
-              transition
+              <img
+                src={section.image}
+                alt={section.title}
+                className="
+                  w-full
+                  h-full
+                  object-cover
+                "
+              />
 
-              ${
-                activeTab === type
+            </div>
 
-                  ? `
-                    bg-red-600
-                    text-white
-                  `
+          )}
 
-                  : `
-                    bg-[#111]
-                    border
-                    border-red-900
-                    text-gray-400
-                    hover:border-red-500
-                    hover:text-white
-                  `
-              }
-            `}
-          >
-            {type}
-          </button>
+          {/* CONTENT */}
 
-        ))}
+          <div className="p-10 space-y-8">
 
-      </div>
+            <div className="space-y-4">
 
-      {/* CONTENT */}
+              <span
+                className="
+                  inline-flex
+                  bg-red-600
+                  px-4
+                  py-2
+                  rounded-full
+                  text-sm
+                  font-bold
+                  uppercase
+                  text-white
+                "
+              >
+                {section.type}
+              </span>
 
-      <div className="space-y-8">
+              <h2
+                className="
+                  text-5xl
+                  font-black
+                  text-white
+                "
+              >
+                {section.title}
+              </h2>
 
-        {filteredSections.map((section) => (
+            </div>
 
-          <section
-            key={section.id}
-            className="
-              bg-[#111]
-              border
-              border-red-900
-              rounded-3xl
-              overflow-hidden
-            "
-          >
+            <div
+              className="
+                prose
+                prose-invert
+                max-w-none
+              "
+            >
 
-            {/* IMAGE */}
+              <ReactMarkdown>
 
-            {section.image && (
+                {section.content}
+
+              </ReactMarkdown>
+
+            </div>
+
+            {/* VIDEO */}
+
+            {section.video_url && (
 
               <div
                 className="
-                  relative
-                  w-full
-                  h-[400px]
+                  aspect-video
+                  rounded-2xl
+                  overflow-hidden
+                  border
+                  border-red-900
                 "
               >
 
-                <img
-                  src={section.image}
-                  alt={section.title}
+                <iframe
+                  src={section.video_url}
                   className="
                     w-full
                     h-full
-                    object-cover
                   "
+                  allowFullScreen
                 />
 
               </div>
 
             )}
 
-            {/* CONTENT */}
+          </div>
 
-            <div className="p-10 space-y-8">
+        </section>
 
-              <div className="space-y-4">
-
-                <h2
-                  className="
-                    text-5xl
-                    font-black
-                    text-white
-                  "
-                >
-                  {section.title}
-                </h2>
-
-              </div>
-
-              <div
-                className="
-                  prose
-                  prose-invert
-                  max-w-none
-                "
-              >
-
-                <ReactMarkdown>
-
-                  {section.content}
-
-                </ReactMarkdown>
-
-              </div>
-
-              {/* VIDEO */}
-
-              {section.video_url && (
-
-                <div
-                  className="
-                    aspect-video
-                    rounded-2xl
-                    overflow-hidden
-                    border
-                    border-red-900
-                  "
-                >
-
-                  <iframe
-                    src={section.video_url}
-                    className="
-                      w-full
-                      h-full
-                    "
-                    allowFullScreen
-                  />
-
-                </div>
-
-              )}
-
-            </div>
-
-          </section>
-
-        ))}
-
-      </div>
+      ))}
 
     </div>
+
   );
 }

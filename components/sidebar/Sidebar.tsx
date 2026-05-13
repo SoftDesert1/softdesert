@@ -50,7 +50,7 @@ export function Sidebar({
           </Link>
 
           <Link
-            href="/noticias"
+            href="/news"
             className="text-gray-300 hover:text-red-500 transition"
           >
             Notícias
