@@ -12,6 +12,9 @@ import { PostComments } from "@/components/comments/PostComments";
 
 import { NewsCard } from "@/components/cards/NewsCard";
 
+import ReactMarkdown
+from "react-markdown";
+
 interface PostPageProps {
 
   params: Promise<{
@@ -141,16 +144,22 @@ export default async function PostPage({
                 "
               >
 
-                <p
-                  className="
-                    text-gray-300
-                    text-xl
-                    leading-relaxed
-                    whitespace-pre-line
-                  "
-                >
-                  {post.content}
-                </p>
+                <div
+  className="
+    prose
+    prose-invert
+    prose-red
+    max-w-none
+  "
+>
+
+  <ReactMarkdown>
+
+    {post.content}
+
+  </ReactMarkdown>
+
+</div>
 
               </div>
 
