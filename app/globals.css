@@ -128,7 +128,7 @@
     @apply font-sans;
   }
 }
-@@keyframes marquee {
+@keyframes marquee {
 
   from {
     transform: translateX(0);
