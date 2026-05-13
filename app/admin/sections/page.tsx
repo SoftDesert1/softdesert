@@ -8,6 +8,9 @@ import {
 import { supabase }
 from "@/lib/supabase/client";
 
+import { ImageUpload }
+from "@/components/upload/ImageUpload";
+
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
@@ -260,29 +263,34 @@ export default function AdminSectionsPage() {
 
           {/* IMAGE */}
 
-          <div className="space-y-2">
+          <div className="space-y-4">
 
-            <label className="text-white font-bold">
-              Imagem
-            </label>
+  <label className="text-white font-bold">
+    Imagem
+  </label>
 
-            <input
-              value={image}
-              onChange={(e) =>
-                setImage(e.target.value)
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
+  <ImageUpload
+    onUpload={setImage}
+  />
 
-          </div>
+  {image && (
+
+    <img
+      src={image}
+      alt="preview"
+      className="
+        w-full
+        h-72
+        object-cover
+        rounded-2xl
+        border
+        border-red-900
+      "
+    />
+
+  )}
+
+</div>
 
           {/* VIDEO */}
 
