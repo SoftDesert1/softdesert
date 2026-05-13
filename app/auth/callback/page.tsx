@@ -2,10 +2,7 @@
 
 import { useEffect } from "react";
 
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { supabase } from "@/lib/supabase/client";
 
@@ -13,25 +10,27 @@ export default function AuthCallbackPage() {
 
   const router = useRouter();
 
-  const searchParams =
-    useSearchParams();
-
   useEffect(() => {
 
-    async function getSession() {
+    async function handleAuth() {
 
       await supabase.auth.getSession();
 
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
       const next =
-        searchParams.get("next")
+        params.get("next")
         || "/";
 
       router.push(next);
     }
 
-    getSession();
+    handleAuth();
 
-  }, [router, searchParams]);
+  }, [router]);
 
   return (
 
