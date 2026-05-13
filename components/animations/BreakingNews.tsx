@@ -22,7 +22,7 @@ export function BreakingNews() {
     <div
       className="
         w-full
-        overflow-hidden
+        overflow-x-hidden
         border-y
         border-red-900
         bg-[#111]
@@ -32,11 +32,12 @@ export function BreakingNews() {
 
       <div
         className="
-          flex
-          flex-row
-          w-max
+          inline-flex
+          items-center
+          gap-16
           whitespace-nowrap
           animate-marquee
+          min-w-max
         "
       >
 
@@ -49,11 +50,7 @@ export function BreakingNews() {
                 flex
                 items-center
                 gap-4
-                px-8
-                text-white
-                font-semibold
                 whitespace-nowrap
-                shrink-0
               "
             >
 
@@ -66,7 +63,12 @@ export function BreakingNews() {
                 BREAKING
               </span>
 
-              <span>
+              <span
+                className="
+                  text-white
+                  font-semibold
+                "
+              >
                 {item}
               </span>
 
