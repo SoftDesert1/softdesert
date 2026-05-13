@@ -80,17 +80,21 @@ export function NewsCard({
         "
       >
 
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="
-            object-cover object-top
-            transition-transform
-            duration-700
-            group-hover:scale-110
-          "
-        />
+        {image && (
+
+  <Image
+    src={image}
+    alt={title}
+    fill
+    className="
+      object-cover
+      group-hover:scale-105
+      transition
+      duration-500
+    "
+  />
+
+)}
 
         <div
           className="

@@ -24,21 +24,30 @@ export function HeroSection({
         overflow-hidden
         border
         border-red-900
+        bg-[#111]
       "
     >
 
-      <Image
-        src={post.image}
-        alt={post.title}
-        fill
-        className="
-          object-cover
-          scale-105
-          hover:scale-110
-          transition
-          duration-700
-        "
-      />
+      {/* IMAGE */}
+
+      {post.image && (
+
+        <Image
+          src={post.image}
+          alt={post.title}
+          fill
+          className="
+            object-cover
+            scale-105
+            hover:scale-110
+            transition
+            duration-700
+          "
+        />
+
+      )}
+
+      {/* OVERLAY */}
 
       <div
         className="
@@ -50,6 +59,8 @@ export function HeroSection({
           to-transparent
         "
       />
+
+      {/* CONTENT */}
 
       <div
         className="
@@ -71,6 +82,7 @@ export function HeroSection({
             text-sm
             font-bold
             uppercase
+            text-white
           "
         >
           Destaque
@@ -93,7 +105,7 @@ export function HeroSection({
             text-xl
           "
         >
-          {post.content.slice(0, 180)}...
+          {post.content?.slice(0, 180)}...
         </p>
 
         <Link

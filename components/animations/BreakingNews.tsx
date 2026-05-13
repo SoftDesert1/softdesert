@@ -1,21 +1,79 @@
 "use client";
 
-const news = [
+import {
+  useEffect,
+  useState,
+} from "react";
 
-  "Nova classe anunciada no Black Desert KR",
+import Link
+from "next/link";
 
-  "Evento temporada começa esta semana",
+import { supabase }
+from "@/lib/supabase/client";
 
-  "Patch Notes global liberado",
+interface BreakingPost {
 
-  "Nova região pode chegar em breve",
+  id: number;
 
-  "World Boss receberá mudanças",
+  title: string;
 
-  "Sistema PvP terá balanceamento",
-];
+  slug: string;
+}
 
 export function BreakingNews() {
+
+  const [news, setNews] =
+    useState<
+      BreakingPost[]
+    >([]);
+
+  useEffect(() => {
+
+    fetchBreakingNews();
+
+  }, []);
+
+  async function fetchBreakingNews() {
+
+    const {
+      data,
+      error,
+    } = await supabase
+
+      .from("posts")
+
+      .select(`
+        id,
+        title,
+        slug
+      `)
+
+      .eq(
+        "is_breaking",
+        true
+      )
+
+      .order(
+        "created_at",
+        {
+          ascending: false,
+        }
+      );
+
+    if (error) {
+
+      console.error(error);
+
+      return;
+    }
+
+    setNews(data || []);
+  }
+
+  if (!news.length) {
+
+    return null;
+  }
 
   return (
 
@@ -44,13 +102,18 @@ export function BreakingNews() {
         {[...news, ...news].map(
           (item, index) => (
 
-            <div
+            <Link
               key={index}
+
+              href={`/post/${item.slug}`}
+
               className="
                 flex
                 items-center
                 gap-4
                 whitespace-nowrap
+                hover:opacity-80
+                transition
               "
             >
 
@@ -69,10 +132,10 @@ export function BreakingNews() {
                   font-semibold
                 "
               >
-                {item}
+                {item.title}
               </span>
 
-            </div>
+            </Link>
 
           )
         )}
