@@ -4,6 +4,8 @@ import { MainLayout } from "@/components/layout/MainLayout";
 
 import { getClassBySlug } from "@/lib/classes/getClassBySlug";
 
+import { getClassSections } from "@/lib/classes/getClassSections";
+
 interface ClassPageProps {
 
   params: Promise<{
@@ -19,6 +21,11 @@ export default async function ClassPage({
 
   const classe =
     await getClassBySlug(slug);
+
+  const sections =
+    await getClassSections(
+      classe.id
+    );
 
   if (!classe) {
 
@@ -223,69 +230,127 @@ export default async function ClassPage({
 
             </div>
 
-            {/* FUTURE SECTIONS */}
+            {/* SECTIONS */}
 
-            <div
+<div className="space-y-8">
+
+  {sections.map((section) => (
+
+    <section
+      key={section.id}
+      className="
+        bg-[#111]
+        border
+        border-red-900
+        rounded-3xl
+        overflow-hidden
+      "
+    >
+
+      {/* IMAGE */}
+
+      {section.image && (
+
+        <div
+          className="
+            relative
+            w-full
+            h-[400px]
+          "
+        >
+
+          <Image
+            src={section.image}
+            alt={section.title}
+            fill
+            className="
+              object-cover
+            "
+          />
+
+        </div>
+
+      )}
+
+      {/* CONTENT */}
+
+      <div className="p-10 space-y-8">
+
+        <div className="space-y-4">
+
+          <span
+            className="
+              inline-flex
+              bg-red-600
+              px-4
+              py-2
+              rounded-full
+              text-sm
+              font-bold
+              uppercase
+              text-white
+            "
+          >
+            {section.type}
+          </span>
+
+          <h2
+            className="
+              text-5xl
+              font-black
+              text-white
+            "
+          >
+            {section.title}
+          </h2>
+
+        </div>
+
+        <p
+          className="
+            text-xl
+            text-gray-300
+            leading-relaxed
+            whitespace-pre-line
+          "
+        >
+          {section.content}
+        </p>
+
+        {/* VIDEO */}
+
+        {section.video_url && (
+
+          <div
+            className="
+              aspect-video
+              rounded-2xl
+              overflow-hidden
+              border
+              border-red-900
+            "
+          >
+
+            <iframe
+              src={section.video_url}
               className="
-                bg-[#111]
-                border
-                border-red-900
-                rounded-3xl
-                p-10
+                w-full
+                h-full
               "
-            >
+              allowFullScreen
+            />
 
-              <h2
-                className="
-                  text-4xl
-                  font-black
-                  text-white
-                  mb-6
-                "
-              >
-                Em breve
-              </h2>
+          </div>
 
-              <div
-                className="
-                  grid
-                  grid-cols-1
-                  md:grid-cols-2
-                  gap-6
-                "
-              >
+        )}
 
-                {[
-                  "PvE Builds",
-                  "PvP Builds",
-                  "Combos",
-                  "Skills",
-                  "Addons",
-                  "Cristais",
-                  "Artefatos",
-                  "Guias",
-                ].map((item) => (
+      </div>
 
-                  <div
-                    key={item}
-                    className="
-                      bg-black/40
-                      border
-                      border-red-900/40
-                      rounded-2xl
-                      p-6
-                      text-white
-                      font-bold
-                    "
-                  >
-                    {item}
-                  </div>
+    </section>
 
-                ))}
+  ))}
 
-              </div>
-
-            </div>
+</div>
 
           </div>
 
