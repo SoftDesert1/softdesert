@@ -1,0 +1,360 @@
+"use client";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  useParams,
+  useRouter,
+} from "next/navigation";
+
+import { supabase }
+from "@/lib/supabase/client";
+
+import { MainLayout }
+from "@/components/layout/MainLayout";
+
+import { ImageUpload }
+from "@/components/upload/ImageUpload";
+
+export default function EditPostPage() {
+
+  const params =
+    useParams();
+
+  const router =
+    useRouter();
+
+  const id =
+    params.id as string;
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [title, setTitle] =
+    useState("");
+
+  const [slug, setSlug] =
+    useState("");
+
+  const [content, setContent] =
+    useState("");
+
+  const [image, setImage] =
+    useState("");
+
+  const [category, setCategory] =
+    useState("");
+
+  useEffect(() => {
+
+    fetchPost();
+
+  }, []);
+
+  async function fetchPost() {
+
+    const { data } =
+      await supabase
+
+        .from("posts")
+
+        .select("*")
+
+        .eq("id", id)
+
+        .single();
+
+    if (data) {
+
+      setTitle(data.title);
+      setSlug(data.slug);
+      setContent(data.content);
+      setImage(data.image);
+      setCategory(data.category);
+    }
+
+    setLoading(false);
+  }
+
+  async function updatePost() {
+
+    const {
+      error,
+    } = await supabase
+
+      .from("posts")
+
+      .update({
+
+        title,
+        slug,
+        content,
+        image,
+        category,
+
+      })
+
+      .eq("id", id);
+
+    if (error) {
+
+      alert(
+        "Erro ao atualizar"
+      );
+
+      return;
+    }
+
+    alert(
+      "Post atualizado!"
+    );
+
+    router.push(
+      "/admin/posts"
+    );
+  }
+
+  if (loading) {
+
+    return (
+
+      <MainLayout>
+
+        <div className="text-white">
+          Carregando...
+        </div>
+
+      </MainLayout>
+
+    );
+  }
+
+  return (
+
+    <MainLayout>
+
+      <div
+        className="
+          max-w-4xl
+          mx-auto
+          space-y-8
+        "
+      >
+
+        <div>
+
+          <h1
+            className="
+              text-5xl
+              font-black
+              text-white
+            "
+          >
+            Editar Post
+          </h1>
+
+        </div>
+
+        <div
+          className="
+            bg-[#111]
+            border
+            border-red-900
+            rounded-3xl
+            p-8
+            space-y-6
+          "
+        >
+
+          {/* TITLE */}
+
+          <div className="space-y-2">
+
+            <label className="text-white font-bold">
+              Título
+            </label>
+
+            <input
+              value={title}
+
+              onChange={(e) => {
+
+                const value =
+                  e.target.value;
+
+                setTitle(value);
+
+                setSlug(
+
+                  value
+
+                    .toLowerCase()
+
+                    .replaceAll(" ", "-")
+
+                    .normalize("NFD")
+
+                    .replace(
+                      /[\u0300-\u036f]/g,
+                      ""
+                    )
+
+                );
+
+              }}
+
+              className="
+                w-full
+                bg-black
+                border
+                border-red-900
+                rounded-xl
+                p-4
+                text-white
+              "
+            />
+
+          </div>
+
+          {/* SLUG */}
+
+          <div className="space-y-2">
+
+            <label className="text-white font-bold">
+              Slug
+            </label>
+
+            <input
+              value={slug}
+              onChange={(e) =>
+                setSlug(e.target.value)
+              }
+              className="
+                w-full
+                bg-black
+                border
+                border-red-900
+                rounded-xl
+                p-4
+                text-white
+              "
+            />
+
+          </div>
+
+          {/* IMAGE */}
+
+          <div className="space-y-4">
+
+            <label className="text-white font-bold">
+              Imagem
+            </label>
+
+            <ImageUpload
+              onUpload={setImage}
+            />
+
+            {image && (
+
+              <img
+                src={image}
+                alt="preview"
+                className="
+                  w-full
+                  h-64
+                  object-cover
+                  rounded-2xl
+                  border
+                  border-red-900
+                "
+              />
+
+            )}
+
+          </div>
+
+          {/* CATEGORY */}
+
+          <div className="space-y-2">
+
+            <label className="text-white font-bold">
+              Categoria
+            </label>
+
+            <input
+              value={category}
+              onChange={(e) =>
+                setCategory(
+                  e.target.value
+                )
+              }
+              className="
+                w-full
+                bg-black
+                border
+                border-red-900
+                rounded-xl
+                p-4
+                text-white
+              "
+            />
+
+          </div>
+
+          {/* CONTENT */}
+
+          <div className="space-y-2">
+
+            <label className="text-white font-bold">
+              Conteúdo
+            </label>
+
+            <textarea
+              rows={12}
+              value={content}
+              onChange={(e) =>
+                setContent(
+                  e.target.value
+                )
+              }
+              className="
+                w-full
+                bg-black
+                border
+                border-red-900
+                rounded-xl
+                p-4
+                text-white
+              "
+            />
+
+          </div>
+
+          {/* BUTTON */}
+
+          <button
+            onClick={updatePost}
+            className="
+              bg-red-600
+              hover:bg-red-700
+              transition
+              px-8
+              py-4
+              rounded-2xl
+              text-white
+              font-bold
+            "
+          >
+            Salvar Alterações
+          </button>
+
+        </div>
+
+      </div>
+
+    </MainLayout>
+  );
+}
