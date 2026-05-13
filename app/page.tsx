@@ -1,8 +1,7 @@
 import { MainLayout } from "@/components/layout/MainLayout";
 import { BreakingNews } from "@/components/animations/BreakingNews";
-import { HeroSection } from "@/components/layout/HeroSection";
 import { NewsCard } from "@/components/cards/NewsCard";
-
+import { HeroSection } from "@/components/home/HeroSection";
 import { getPosts } from "@/lib/posts/getPosts";
 
 export default async function Home() {
@@ -16,7 +15,9 @@ export default async function Home() {
 
         <BreakingNews />
 
-        <HeroSection />
+        <HeroSection
+          post={posts[0]}
+        />
 
         <div>
 
