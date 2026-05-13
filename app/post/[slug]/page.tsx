@@ -1,117 +1,51 @@
-import Image from "next/image";
+"use client";
 
-import { MainLayout } from "@/components/layout/MainLayout";
+import { useEffect } from "react";
 
-import { getPostBySlug } from "@/lib/posts/getPostBySlug";
+import { useRouter } from "next/navigation";
 
-import { PostComments } from "@/components/comments/PostComments";
+import { supabase } from "@/lib/supabase/client";
 
-interface PostPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
+export default function AuthCallbackPage() {
 
-export default async function PostPage({
-  params,
-}: PostPageProps) {
+  const router = useRouter();
 
-  const { slug } = await params;
+  useEffect(() => {
 
-  const post = await getPostBySlug(slug);
+    async function getSession() {
 
-  if (!post) {
+      await supabase.auth.getSession();
 
-    return (
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
 
-      <MainLayout>
+      const next =
+        params.get("next")
+        || "/";
 
-        <h1 className="text-white text-3xl">
-          Post não encontrado
-        </h1>
+      router.push(next);
+    }
 
-      </MainLayout>
+    getSession();
 
-    );
-  }
+  }, [router]);
 
   return (
 
-    <MainLayout>
+    <div
+      className="
+        min-h-screen
+        bg-black
+        flex
+        items-center
+        justify-center
+        text-white
+      "
+    >
+      Entrando...
+    </div>
 
-      <article
-        className="
-          max-w-4xl
-          mx-auto
-          space-y-12
-        "
-      >
-
-        {/* IMAGE */}
-
-        <div
-          className="
-            relative
-            w-full
-            h-[500px]
-            rounded-3xl
-            overflow-hidden
-          "
-        >
-
-          <Image
-            src={post.image}
-            alt={post.title}
-            fill
-            className="object-cover"
-          />
-
-        </div>
-
-        {/* CONTENT */}
-
-        <div className="space-y-6">
-
-          <span
-            className="
-              text-red-500
-              font-bold
-              uppercase
-            "
-          >
-            {post.category}
-          </span>
-
-          <h1
-            className="
-              text-5xl
-              font-black
-              text-white
-            "
-          >
-            {post.title}
-          </h1>
-
-          <p
-            className="
-              text-gray-300
-              text-lg
-              leading-relaxed
-            "
-          >
-            {post.content}
-          </p>
-
-        </div>
-
-        {/* COMMENTS */}
-
-        <PostComments
-          postId={post.id}
-        />
-
-      </article>
-
-    </MainLayout>
   );
 }
