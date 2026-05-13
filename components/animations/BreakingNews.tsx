@@ -33,9 +33,10 @@ export function BreakingNews() {
       <div
         className="
           flex
+          flex-row
+          w-max
           whitespace-nowrap
           animate-marquee
-          gap-16
         "
       >
 
@@ -48,8 +49,11 @@ export function BreakingNews() {
                 flex
                 items-center
                 gap-4
+                px-8
                 text-white
                 font-semibold
+                whitespace-nowrap
+                shrink-0
               "
             >
 
