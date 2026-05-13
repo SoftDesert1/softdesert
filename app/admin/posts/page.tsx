@@ -1,7 +1,11 @@
 "use client";
 
-import { useState }
-from "react";
+import Link from "next/link";
+
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import { supabase }
 from "@/lib/supabase/client";
@@ -9,60 +13,56 @@ from "@/lib/supabase/client";
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
-import { ImageUpload }
-from "@/components/upload/ImageUpload";
-
 export default function AdminPostsPage() {
 
-  const [title, setTitle] =
-    useState("");
+  const [posts, setPosts] =
+    useState<any[]>([]);
 
-  const [slug, setSlug] =
-    useState("");
+  useEffect(() => {
 
-  const [content, setContent] =
-    useState("");
+    fetchPosts();
 
-  const [image, setImage] =
-    useState("");
+  }, []);
 
-  const [category, setCategory] =
-    useState("");
+  async function fetchPosts() {
 
-  async function createPost() {
+    const { data } =
+      await supabase
 
-    const {
-      error,
-    } = await supabase
+        .from("posts")
+
+        .select("*")
+
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        );
+
+    setPosts(data || []);
+  }
+
+  async function deletePost(
+    id: number
+  ) {
+
+    const confirmed =
+      confirm(
+        "Excluir post?"
+      );
+
+    if (!confirmed) return;
+
+    await supabase
 
       .from("posts")
 
-      .insert({
+      .delete()
 
-        title,
-        slug,
-        content,
-        image,
-        category,
+      .eq("id", id);
 
-      });
-
-    if (error) {
-
-      console.log(error);
-
-      alert("Erro ao criar post");
-
-      return;
-    }
-
-    alert("Post criado!");
-
-    setTitle("");
-    setSlug("");
-    setContent("");
-    setImage("");
-    setCategory("");
+    fetchPosts();
   }
 
   return (
@@ -71,224 +71,154 @@ export default function AdminPostsPage() {
 
       <div
         className="
-          max-w-4xl
+          max-w-7xl
           mx-auto
-          space-y-8
+          space-y-10
         "
       >
 
-        <div>
-
-          <h1
-            className="
-              text-5xl
-              font-black
-              text-white
-            "
-          >
-            Criar Post
-          </h1>
-
-          <p
-            className="
-              text-gray-400
-              mt-2
-            "
-          >
-            Adicione uma nova notícia
-          </p>
-
-        </div>
+        {/* HEADER */}
 
         <div
           className="
-            bg-[#111]
-            border
-            border-red-900
-            rounded-3xl
-            p-8
-            space-y-6
+            flex
+            items-center
+            justify-between
+            gap-6
           "
         >
 
-          {/* TITLE */}
+          <div>
 
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Título
-            </label>
-
-            <input
-              value={title}
-              onChange={(e) => {
-
-  const value =
-    e.target.value;
-
-  setTitle(value);
-
-  setSlug(
-
-    value
-
-      .toLowerCase()
-
-      .replaceAll(" ", "-")
-
-      .normalize("NFD")
-
-      .replace(/[\u0300-\u036f]/g, "")
-
-  );
-
-}}
+            <h1
               className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
+                text-5xl
+                font-black
                 text-white
               "
-            />
+            >
+              Gerenciar Posts
+            </h1>
+
+            <p
+              className="
+                text-gray-400
+                mt-2
+              "
+            >
+              Edite e organize
+              o conteúdo do portal
+            </p>
 
           </div>
 
-          {/* SLUG */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Slug
-            </label>
-
-            <input
-              value={slug}
-              onChange={(e) =>
-                setSlug(e.target.value)
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* IMAGE */}
-
-          <div className="space-y-4">
-
-  <label className="text-white font-bold">
-    Imagem
-  </label>
-
-  <ImageUpload
-    onUpload={setImage}
-  />
-
-  {image && (
-
-    <img
-      src={image}
-      alt="preview"
-      className="
-        w-full
-        h-64
-        object-cover
-        rounded-2xl
-        border
-        border-red-900
-      "
-    />
-
-  )}
-
-</div>
-
-          {/* CATEGORY */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Categoria
-            </label>
-
-            <input
-              value={category}
-              onChange={(e) =>
-                setCategory(e.target.value)
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* CONTENT */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Conteúdo
-            </label>
-
-            <textarea
-              value={content}
-              onChange={(e) =>
-                setContent(e.target.value)
-              }
-              rows={10}
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* BUTTON */}
-
-          <button
-            onClick={createPost}
+          <Link
+            href="/admin/posts/create"
             className="
               bg-red-600
               hover:bg-red-700
               transition
-              px-8
+              px-6
               py-4
               rounded-2xl
               text-white
               font-bold
             "
           >
-            Criar Post
-          </button>
+            + Novo Post
+          </Link>
+
+        </div>
+
+        {/* POSTS */}
+
+        <div className="space-y-5">
+
+          {posts.map((post) => (
+
+            <div
+              key={post.id}
+              className="
+                bg-[#111]
+                border
+                border-red-900
+                rounded-3xl
+                p-6
+                flex
+                items-center
+                justify-between
+                gap-6
+              "
+            >
+
+              <div className="space-y-2">
+
+                <h2
+                  className="
+                    text-2xl
+                    font-bold
+                    text-white
+                  "
+                >
+                  {post.title}
+                </h2>
+
+                <p
+                  className="
+                    text-gray-400
+                  "
+                >
+                  {post.category}
+                </p>
+
+              </div>
+
+              <div className="flex gap-3">
+
+                <Link
+                  href={`/admin/posts/${post.id}`}
+                  className="
+                    bg-yellow-600
+                    hover:bg-yellow-700
+                    transition
+                    px-5
+                    py-3
+                    rounded-xl
+                    text-white
+                    font-bold
+                  "
+                >
+                  Editar
+                </Link>
+
+                <button
+                  onClick={() =>
+                    deletePost(post.id)
+                  }
+                  className="
+                    bg-red-600
+                    hover:bg-red-700
+                    transition
+                    px-5
+                    py-3
+                    rounded-xl
+                    text-white
+                    font-bold
+                  "
+                >
+                  Excluir
+                </button>
+
+              </div>
+
+            </div>
+
+          ))}
 
         </div>
 
       </div>
 
     </MainLayout>
-
   );
 }
