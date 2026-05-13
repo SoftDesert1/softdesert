@@ -2,11 +2,15 @@ import { MainLayout } from "@/components/layout/MainLayout";
 
 import { getPostBySlug } from "@/lib/posts/getPostBySlug";
 
+import { getRelatedPosts } from "@/lib/posts/getRelatedPosts";
+
 import { PostHero } from "@/components/posts/PostHero";
 
 import { LikeButton } from "@/components/posts/LikeButton";
 
 import { PostComments } from "@/components/comments/PostComments";
+
+import { NewsCard } from "@/components/cards/NewsCard";
 
 interface PostPageProps {
 
@@ -56,6 +60,12 @@ export default async function PostPage({
     );
   }
 
+  const relatedPosts =
+    await getRelatedPosts(
+      post.category,
+      post.id
+    );
+
   return (
 
     <MainLayout>
@@ -64,7 +74,7 @@ export default async function PostPage({
         className="
           max-w-7xl
           mx-auto
-          space-y-12
+          space-y-16
         "
       >
 
@@ -145,6 +155,74 @@ export default async function PostPage({
               </div>
 
             </div>
+
+            {/* RELATED POSTS */}
+
+            {relatedPosts.length > 0 && (
+
+              <section className="space-y-6">
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  <span className="text-3xl">
+                    🔥
+                  </span>
+
+                  <h2
+                    className="
+                      text-4xl
+                      font-black
+                      text-white
+                    "
+                  >
+                    Você também pode gostar
+                  </h2>
+
+                </div>
+
+                <div
+                  className="
+                    grid
+                    grid-cols-1
+                    md:grid-cols-2
+                    xl:grid-cols-3
+                    gap-6
+                  "
+                >
+
+                  {relatedPosts.map(
+                    (relatedPost) => (
+
+                      <NewsCard
+                        key={relatedPost.id}
+                        title={
+                          relatedPost.title
+                        }
+                        description={
+                          relatedPost.content
+                        }
+                        image={
+                          relatedPost.image
+                        }
+                        slug={
+                          relatedPost.slug
+                        }
+                      />
+
+                    )
+                  )}
+
+                </div>
+
+              </section>
+
+            )}
 
             {/* COMMENTS */}
 
