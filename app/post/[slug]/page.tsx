@@ -6,6 +6,8 @@ import { getPostBySlug } from "@/lib/posts/getPostBySlug";
 
 import { PostComments } from "@/components/comments/PostComments";
 
+import { LikeButton } from "@/components/posts/LikeButton";
+
 interface PostPageProps {
   params: Promise<{
     slug: string;
@@ -103,6 +105,10 @@ export default async function PostPage({
           </p>
 
         </div>
+
+        <LikeButton
+          postId={post.id}
+        />
 
         {/* COMMENTS */}
 
