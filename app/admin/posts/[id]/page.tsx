@@ -339,6 +339,44 @@ export default function EditPostPage() {
 
           </div>
 
+          {/* BREAKING */}
+
+<div
+  className="
+    flex
+    items-center
+    gap-3
+  "
+>
+
+  <input
+    type="checkbox"
+
+    checked={isBreaking}
+
+    onChange={(e) =>
+      setIsBreaking(
+        e.target.checked
+      )
+    }
+
+    className="
+      w-5
+      h-5
+    "
+  />
+
+  <label
+    className="
+      text-white
+      font-bold
+    "
+  >
+    Breaking News
+  </label>
+
+</div>
+
           {/* BUTTON */}
 
           <button
