@@ -100,6 +100,8 @@ export default function EditPostPage() {
         content,
         image,
         category,
+        is_breaking:
+          isBreaking,
 
       })
 
