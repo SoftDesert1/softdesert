@@ -2,51 +2,45 @@ import { supabase } from "@/lib/supabase/client";
 
 export async function getTrendingPosts() {
 
-  const { data } = await supabase
-    .from("likes")
-    .select(`
-      post_id,
-      posts (
-        id,
-        title,
-        slug,
-        image,
-        content,
-        category
-      )
-    `);
+  const { data: likes } =
+    await supabase
+      .from("likes")
+      .select("*");
 
-  if (!data) return [];
+  if (!likes || likes.length === 0) {
+    return [];
+  }
 
-  const countMap: Record<
-    number,
-    {
-      likes: number;
-      post: any;
-    }
-  > = {};
+  const postIds = [
+    ...new Set(
+      likes.map((like) => like.post_id)
+    ),
+  ];
 
-  data.forEach((like: any) => {
+  const { data: posts } =
+    await supabase
+      .from("posts")
+      .select("*")
+      .in("id", postIds);
 
-    const post = like.posts;
+  if (!posts) return [];
 
-    if (!post) return;
+  const trending = posts.map((post) => {
 
-    if (!countMap[post.id]) {
+    const likesCount =
+      likes.filter(
+        (like) =>
+          like.post_id === post.id
+      ).length;
 
-      countMap[post.id] = {
-        likes: 0,
-        post,
-      };
-    }
-
-    countMap[post.id].likes++;
+    return {
+      post,
+      likes: likesCount,
+    };
   });
 
-  return Object.values(countMap)
-    .sort(
-      (a, b) =>
-        b.likes - a.likes
-    )
-    .slice(0, 5);
+  return trending.sort(
+    (a, b) =>
+      b.likes - a.likes
+  );
 }
