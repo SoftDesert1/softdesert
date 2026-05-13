@@ -1,25 +1,75 @@
+"use client";
+
+const news = [
+
+  "Nova classe anunciada no Black Desert KR",
+
+  "Evento temporada começa esta semana",
+
+  "Patch Notes global liberado",
+
+  "Nova região pode chegar em breve",
+
+  "World Boss receberá mudanças",
+
+  "Sistema PvP terá balanceamento",
+];
+
 export function BreakingNews() {
+
   return (
-    <div className="w-full overflow-hidden border border-red-900 bg-red-950/40 rounded-xl">
 
-      <div className="flex">
+    <div
+      className="
+        w-full
+        overflow-hidden
+        border-y
+        border-red-900
+        bg-[#111]
+        py-3
+      "
+    >
 
-        <div className="bg-red-600 px-4 py-3 font-bold text-white whitespace-nowrap">
-          🔥 BREAKING NEWS
-        </div>
+      <div
+        className="
+          flex
+          whitespace-nowrap
+          animate-marquee
+          gap-16
+        "
+      >
 
-        <div className="relative flex-1 overflow-hidden">
+        {[...news, ...news].map(
+          (item, index) => (
 
-          <div className="animate-marquee whitespace-nowrap py-3 px-6 text-gray-300">
+            <div
+              key={index}
+              className="
+                flex
+                items-center
+                gap-4
+                text-white
+                font-semibold
+              "
+            >
 
-            Novo patch chegou ao Black Desert • 
-            Nova classe anunciada • 
-            Evento mundial ativo • 
-            Boss Rush liberado •
+              <span
+                className="
+                  text-red-500
+                  font-black
+                "
+              >
+                BREAKING
+              </span>
 
-          </div>
+              <span>
+                {item}
+              </span>
 
-        </div>
+            </div>
+
+          )
+        )}
 
       </div>
 
