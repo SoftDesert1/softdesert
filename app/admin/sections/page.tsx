@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import {
   useEffect,
   useState,
@@ -8,106 +10,64 @@ import {
 import { supabase }
 from "@/lib/supabase/client";
 
-import { ImageUpload }
-from "@/components/upload/ImageUpload";
-
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
 export default function AdminSectionsPage() {
 
-  const [classes, setClasses] =
+  const [sections, setSections] =
     useState<any[]>([]);
-
-  const [classId, setClassId] =
-    useState("");
-
-  const [type, setType] =
-    useState("");
-
-  const [title, setTitle] =
-    useState("");
-
-  const [content, setContent] =
-    useState("");
-
-  const [image, setImage] =
-    useState("");
-
-  const [videoUrl, setVideoUrl] =
-    useState("");
-
-  const [orderIndex, setOrderIndex] =
-    useState("0");
 
   useEffect(() => {
 
-    async function fetchClasses() {
-
-      const { data } =
-        await supabase
-
-          .from("classes")
-
-          .select("*")
-
-          .order("name");
-
-      setClasses(data || []);
-    }
-
-    fetchClasses();
+    fetchSections();
 
   }, []);
 
-  async function createSection() {
+  async function fetchSections() {
 
-    const {
-      error,
-    } = await supabase
+    const { data } =
+      await supabase
+
+        .from("class_sections")
+
+        .select(`
+          *,
+          classes (
+            name
+          )
+        `)
+
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        );
+
+    setSections(data || []);
+  }
+
+  async function deleteSection(
+    id: number
+  ) {
+
+    const confirmed =
+      confirm(
+        "Excluir section?"
+      );
+
+    if (!confirmed) return;
+
+    await supabase
 
       .from("class_sections")
 
-      .insert({
+      .delete()
 
-        class_id:
-          Number(classId),
+      .eq("id", id);
 
-        type,
-
-        title,
-
-        content,
-
-        image,
-
-        video_url:
-          videoUrl,
-
-        order_index:
-          Number(orderIndex),
-
-      });
-
-    if (error) {
-
-      console.log(error);
-
-      alert(
-        "Erro ao criar section"
-      );
-
-      return;
-    }
-
-    alert("Section criada!");
-
-    setType("");
-    setTitle("");
-    setContent("");
-    setImage("");
-    setVideoUrl("");
-    setOrderIndex("0");
+    fetchSections();
   }
 
   return (
@@ -116,287 +76,180 @@ export default function AdminSectionsPage() {
 
       <div
         className="
-          max-w-5xl
+          max-w-7xl
           mx-auto
-          space-y-8
+          space-y-10
         "
       >
 
         {/* HEADER */}
 
-        <div>
-
-          <h1
-            className="
-              text-5xl
-              font-black
-              text-white
-            "
-          >
-            Criar Section
-          </h1>
-
-          <p
-            className="
-              text-gray-400
-              mt-2
-            "
-          >
-            Adicione conteúdo
-            para as classes
-          </p>
-
-        </div>
-
-        {/* FORM */}
-
         <div
           className="
-            bg-[#111]
-            border
-            border-red-900
-            rounded-3xl
-            p-8
-            space-y-6
+            flex
+            items-center
+            justify-between
+            gap-6
           "
         >
 
-          {/* CLASS */}
+          <div>
 
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Classe
-            </label>
-
-            <select
-              value={classId}
-              onChange={(e) =>
-                setClassId(
-                  e.target.value
-                )
-              }
+            <h1
               className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
+                text-5xl
+                font-black
                 text-white
               "
             >
+              Gerenciar Sections
+            </h1>
 
-              <option value="">
-                Selecione
-              </option>
-
-              {classes.map((classe) => (
-
-                <option
-                  key={classe.id}
-                  value={classe.id}
-                >
-                  {classe.name}
-                </option>
-
-              ))}
-
-            </select>
-
-          </div>
-
-          {/* TYPE */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Tipo
-            </label>
-
-            <input
-              value={type}
-              onChange={(e) =>
-                setType(e.target.value)
-              }
-              placeholder="
-                pve, pvp, combo...
-              "
+            <p
               className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
+                text-gray-400
+                mt-2
               "
-            />
+            >
+              Gerencie o conteúdo
+              das classes
+            </p>
 
           </div>
 
-          {/* TITLE */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Título
-            </label>
-
-            <input
-              value={title}
-              onChange={(e) =>
-                setTitle(e.target.value)
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* IMAGE */}
-
-          <div className="space-y-4">
-
-  <label className="text-white font-bold">
-    Imagem
-  </label>
-
-  <ImageUpload
-    onUpload={setImage}
-  />
-
-  {image && (
-
-    <img
-      src={image}
-      alt="preview"
-      className="
-        w-full
-        h-72
-        object-cover
-        rounded-2xl
-        border
-        border-red-900
-      "
-    />
-
-  )}
-
-</div>
-
-          {/* VIDEO */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Video URL
-            </label>
-
-            <input
-              value={videoUrl}
-              onChange={(e) =>
-                setVideoUrl(
-                  e.target.value
-                )
-              }
-              placeholder="
-                https://www.youtube.com/embed/...
-              "
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* ORDER */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Ordem
-            </label>
-
-            <input
-              value={orderIndex}
-              onChange={(e) =>
-                setOrderIndex(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* CONTENT */}
-
-          <div className="space-y-2">
-
-            <label className="text-white font-bold">
-              Conteúdo
-            </label>
-
-            <textarea
-              rows={10}
-              value={content}
-              onChange={(e) =>
-                setContent(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
-
-          </div>
-
-          {/* BUTTON */}
-
-          <button
-            onClick={createSection}
+          <Link
+            href="/admin/sections/create"
             className="
               bg-red-600
               hover:bg-red-700
               transition
-              px-8
+              px-6
               py-4
               rounded-2xl
               text-white
               font-bold
             "
           >
-            Criar Section
-          </button>
+            + Nova Section
+          </Link>
+
+        </div>
+
+        {/* LIST */}
+
+        <div className="space-y-5">
+
+          {sections.map((section) => (
+
+            <div
+              key={section.id}
+              className="
+                bg-[#111]
+                border
+                border-red-900
+                rounded-3xl
+                p-6
+                flex
+                items-center
+                justify-between
+                gap-6
+              "
+            >
+
+              <div className="space-y-2">
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  <span
+                    className="
+                      bg-red-600
+                      text-white
+                      text-xs
+                      font-bold
+                      px-3
+                      py-1
+                      rounded-full
+                      uppercase
+                    "
+                  >
+                    {section.type}
+                  </span>
+
+                  <span
+                    className="
+                      text-gray-400
+                    "
+                  >
+                    {
+                      section
+                        .classes
+                        ?.name
+                    }
+                  </span>
+
+                </div>
+
+                <h2
+                  className="
+                    text-2xl
+                    font-bold
+                    text-white
+                  "
+                >
+                  {section.title}
+                </h2>
+
+              </div>
+
+              <div className="flex gap-3">
+
+                <Link
+                  href={`/admin/sections/${section.id}`}
+                  className="
+                    bg-yellow-600
+                    hover:bg-yellow-700
+                    transition
+                    px-5
+                    py-3
+                    rounded-xl
+                    text-white
+                    font-bold
+                  "
+                >
+                  Editar
+                </Link>
+
+                <button
+                  onClick={() =>
+                    deleteSection(
+                      section.id
+                    )
+                  }
+                  className="
+                    bg-red-600
+                    hover:bg-red-700
+                    transition
+                    px-5
+                    py-3
+                    rounded-xl
+                    text-white
+                    font-bold
+                  "
+                >
+                  Excluir
+                </button>
+
+              </div>
+
+            </div>
+
+          ))}
 
         </div>
 
