@@ -36,6 +36,9 @@ export default function EditPostPage() {
   const [title, setTitle] =
     useState("");
 
+  const [isBreaking, setIsBreaking] =
+    useState(false);
+
   const [slug, setSlug] =
     useState("");
 
@@ -74,6 +77,9 @@ export default function EditPostPage() {
       setContent(data.content);
       setImage(data.image);
       setCategory(data.category);
+      setIsBreaking(
+        data.is_breaking
+      );
     }
 
     setLoading(false);
