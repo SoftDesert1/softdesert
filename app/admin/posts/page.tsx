@@ -9,6 +9,9 @@ from "@/lib/supabase/client";
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
+import { ImageUpload }
+from "@/components/upload/ImageUpload";
+
 export default function AdminPostsPage() {
 
   const [title, setTitle] =
@@ -181,29 +184,34 @@ export default function AdminPostsPage() {
 
           {/* IMAGE */}
 
-          <div className="space-y-2">
+          <div className="space-y-4">
 
-            <label className="text-white font-bold">
-              URL da imagem
-            </label>
+  <label className="text-white font-bold">
+    Imagem
+  </label>
 
-            <input
-              value={image}
-              onChange={(e) =>
-                setImage(e.target.value)
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
+  <ImageUpload
+    onUpload={setImage}
+  />
 
-          </div>
+  {image && (
+
+    <img
+      src={image}
+      alt="preview"
+      className="
+        w-full
+        h-64
+        object-cover
+        rounded-2xl
+        border
+        border-red-900
+      "
+    />
+
+  )}
+
+</div>
 
           {/* CATEGORY */}
 
