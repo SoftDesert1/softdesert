@@ -35,7 +35,7 @@ export function Header({
       provider: "discord",
       options: {
         redirectTo:
-          "http://localhost:3000/auth/callback",
+  `${window.location.origin}/auth/callback`,
       },
     });
 
