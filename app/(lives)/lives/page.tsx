@@ -1,61 +1,69 @@
+"use client";
+
+import Link from "next/link";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import { supabase }
+from "@/lib/supabase/client";
+
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
-const streamers = [
+export default function AdminLivesPage() {
 
-  {
-    id: 1,
+  const [lives, setLives] =
+    useState<any[]>([]);
 
-    name: "OneTapinha",
+  useEffect(() => {
 
-    platform: "Kick",
+    fetchLives();
 
-    description:
-      "Main Berserker PvP",
+  }, []);
 
-    embed:
-      "https://player.kick.com/onetapinha?muted=true",
+  async function fetchLives() {
 
-    url:
-      "https://kick.com/onetapinha",
-  },
+    const { data } =
+      await supabase
 
-  {
-    id: 2,
+        .from("lives")
 
-    name: "Streamer 2",
+        .select("*")
 
-    platform: "YouTube",
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        );
 
-    description:
-      "Endgame Grind",
+    setLives(data || []);
+  }
 
-    embed:
-      "https://www.youtube.com/embed/jfKfPfyJRdk",
+  async function deleteLive(
+    id: number
+  ) {
 
-    url:
-      "https://youtube.com",
-  },
+    const confirmed =
+      confirm(
+        "Excluir live?"
+      );
 
-  {
-    id: 3,
+    if (!confirmed) return;
 
-    name: "KhorinGATV",
+    await supabase
 
-    platform: "Kick",
+      .from("lives")
 
-    description:
-      "Main Guardian AWK",
+      .delete()
 
-    embed:
-      "https://player.kick.com/khoringatv?muted=true",
+      .eq("id", id);
 
-    url:
-      "https://kick.com/khoringatv",
-  },
-];
-
-export default function LivesPage() {
+    fetchLives();
+  }
 
   return (
 
@@ -65,107 +73,101 @@ export default function LivesPage() {
         className="
           max-w-7xl
           mx-auto
-          space-y-12
+          space-y-10
         "
       >
 
-        {/* HERO */}
+        {/* HEADER */}
 
-        <section
+        <div
           className="
-            relative
-            overflow-hidden
-            rounded-[40px]
-            border
-            border-red-900
-            bg-[#111]
-            p-10
+            flex
+            items-center
+            justify-between
           "
         >
 
-          <div className="space-y-6 max-w-3xl">
-
-            <span
-              className="
-                inline-flex
-                bg-red-600
-                text-white
-                px-4
-                py-2
-                rounded-full
-                text-sm
-                font-bold
-                uppercase
-              "
-            >
-              Community Lives
-            </span>
+          <div>
 
             <h1
               className="
-                text-6xl
+                text-5xl
                 font-black
                 text-white
               "
             >
-              Lives da Comunidade
+              Lives
             </h1>
 
             <p
               className="
-                text-xl
-                text-gray-300
-                leading-relaxed
+                text-gray-400
+                mt-2
               "
             >
-              Divulgando criadores de conteúdo,
-              PvP grinders, shotcallers e streamers
-              da comunidade Black Desert.
+              Gerencie streamers
+              da comunidade
             </p>
 
           </div>
 
-        </section>
+          <Link
+            href="/admin/lives/create"
+            className="
+              bg-red-600
+              hover:bg-red-700
+              transition
+              px-6
+              py-4
+              rounded-2xl
+              text-white
+              font-bold
+            "
+          >
+            + Nova Live
+          </Link>
 
-        {/* GRID */}
+        </div>
 
-        <div
-          className="
-            grid
-            grid-cols-1
-            xl:grid-cols-2
-            gap-8
-          "
-        >
+        {/* LIST */}
 
-          {streamers.map((streamer) => (
+        <div className="space-y-5">
+
+          {lives.map((live) => (
 
             <div
-              key={streamer.id}
+              key={live.id}
               className="
                 bg-[#111]
                 border
                 border-red-900
                 rounded-3xl
-                overflow-hidden
+                p-6
+                flex
+                items-center
+                justify-between
+                gap-6
               "
             >
 
-              {/* VIDEO */}
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-5
+                "
+              >
 
-              <div className="aspect-video">
-
-                <iframe
-                  src={streamer.embed}
-                  className="w-full h-full"
-                  allowFullScreen
+                <img
+                  src={live.image}
+                  alt={live.streamer_name}
+                  className="
+                    w-32
+                    h-20
+                    object-cover
+                    rounded-2xl
+                  "
                 />
-
-              </div>
-
-              {/* CONTENT */}
-
-              <div className="p-6 space-y-5">
 
                 <div className="space-y-2">
 
@@ -181,42 +183,60 @@ export default function LivesPage() {
                       font-bold
                     "
                   >
-                    {streamer.platform}
+                    {live.platform}
                   </div>
 
                   <h2
                     className="
-                      text-3xl
+                      text-2xl
                       font-black
                       text-white
                     "
                   >
-                    {streamer.name}
+                    {live.streamer_name}
                   </h2>
-
-                  <p className="text-gray-400">
-                    {streamer.description}
-                  </p>
 
                 </div>
 
-                <a
-                  href={streamer.url}
-                  target="_blank"
+              </div>
+
+              <div className="flex gap-3">
+
+                <Link
+                  href={`/admin/lives/${live.id}`}
                   className="
-                    inline-flex
-                    bg-red-600
-                    hover:bg-red-700
+                    bg-yellow-600
+                    hover:bg-yellow-700
                     transition
-                    px-6
+                    px-5
                     py-3
-                    rounded-2xl
+                    rounded-xl
                     text-white
                     font-bold
                   "
                 >
-                  Assistir Live
-                </a>
+                  Editar
+                </Link>
+
+                <button
+                  onClick={() =>
+                    deleteLive(
+                      live.id
+                    )
+                  }
+                  className="
+                    bg-red-600
+                    hover:bg-red-700
+                    transition
+                    px-5
+                    py-3
+                    rounded-xl
+                    text-white
+                    font-bold
+                  "
+                >
+                  Excluir
+                </button>
 
               </div>
 
