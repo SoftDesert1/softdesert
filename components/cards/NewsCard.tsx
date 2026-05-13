@@ -75,7 +75,7 @@ export function NewsCard({
         className="
           relative
           w-full
-          h-64
+          aspect-video
           overflow-hidden
         "
       >
@@ -85,7 +85,7 @@ export function NewsCard({
           alt={title}
           fill
           className="
-            object-cover
+            object-cover object-top
             transition-transform
             duration-700
             group-hover:scale-110

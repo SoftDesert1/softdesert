@@ -15,7 +15,7 @@ export function PostHero({
       className="
         relative
         w-full
-        h-[700px]
+        aspect-[21/9]
         overflow-hidden
         rounded-3xl
         border
@@ -28,7 +28,7 @@ export function PostHero({
         alt={post.title}
         fill
         className="
-          object-cover
+          object-contain
           scale-105
         "
         priority
