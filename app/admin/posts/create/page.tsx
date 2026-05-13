@@ -17,6 +17,9 @@ export default function AdminPostsPage() {
   const [title, setTitle] =
     useState("");
 
+  const [isBreaking, setIsBreaking] =
+    useState(false);  
+
   const [slug, setSlug] =
     useState("");
 
@@ -44,6 +47,9 @@ export default function AdminPostsPage() {
         content,
         image,
         category,
+
+        is_breaking:
+          isBreaking,
 
       });
 
@@ -265,6 +271,42 @@ export default function AdminPostsPage() {
             />
 
           </div>
+
+          <div
+  className="
+    flex
+    items-center
+    gap-3
+  "
+>
+
+  <input
+    type="checkbox"
+
+    checked={isBreaking}
+
+    onChange={(e) =>
+      setIsBreaking(
+        e.target.checked
+      )
+    }
+
+    className="
+      w-5
+      h-5
+    "
+  />
+
+  <label
+    className="
+      text-white
+      font-bold
+    "
+  >
+    Breaking News
+  </label>
+
+</div>
 
           {/* BUTTON */}
 
