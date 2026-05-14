@@ -147,7 +147,7 @@ export default async function PostPage({
   "
 >
 
-  <<div
+  <div
   className="
     prose
     prose-invert
