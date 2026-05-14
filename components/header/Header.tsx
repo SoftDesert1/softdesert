@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import {
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -40,6 +41,11 @@ export function Header({
   const [isMenuOpen,
     setIsMenuOpen] =
       useState(false);
+
+  const menuRef =
+  useRef<HTMLDivElement>(
+    null
+  );
 
   useEffect(() => {
 
@@ -89,6 +95,38 @@ export function Header({
     searchPosts();
 
   }, [search]);
+
+  useEffect(() => {
+
+  function handleClickOutside(
+    event: MouseEvent
+  ) {
+
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(
+        event.target as Node
+      )
+    ) {
+
+      setIsMenuOpen(false);
+    }
+  }
+
+  document.addEventListener(
+    "mousedown",
+    handleClickOutside
+  );
+
+  return () => {
+
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+  };
+
+}, []);
 
   async function loginWithDiscord() {
 
@@ -255,11 +293,12 @@ export function Header({
       {user ? (
 
         <div
-          className="
-            relative
-            shrink-0
-          "
-        >
+  ref={menuRef}
+  className="
+    relative
+    shrink-0
+  "
+>
 
           {/* AVATAR */}
 
