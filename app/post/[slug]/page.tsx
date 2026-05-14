@@ -147,11 +147,24 @@ export default async function PostPage({
   "
 >
 
-  <ReactMarkdown>
+  <<div
+  className="
+    prose
+    prose-invert
+    max-w-none
 
-    {post.content}
+    prose-headings:text-white
+    prose-p:text-gray-300
+    prose-strong:text-white
+    prose-li:text-gray-300
 
-  </ReactMarkdown>
+    prose-blockquote:border-red-500
+    prose-blockquote:text-gray-400
+  "
+  dangerouslySetInnerHTML={{
+    __html: post.content,
+  }}
+/>
 
 </div>
 
