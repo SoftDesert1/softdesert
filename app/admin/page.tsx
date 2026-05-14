@@ -143,6 +143,51 @@ export default function AdminDashboard() {
 
           </Link>
 
+          <Link
+  href="/admin/lives"
+  className="
+    bg-[#111]
+    border
+    border-red-900
+    rounded-3xl
+    p-8
+    hover:border-red-500
+    transition
+    space-y-4
+  "
+>
+
+  <div
+    className="
+      text-5xl
+    "
+  >
+    📺
+  </div>
+
+  <div className="space-y-2">
+
+    <h2
+      className="
+        text-2xl
+        font-black
+        text-white
+      "
+    >
+      Lives
+    </h2>
+
+    <p className="text-gray-400">
+
+      Gerencie streamers
+      e lives da comunidade
+
+    </p>
+
+  </div>
+
+</Link>
+
           {/* SECTIONS */}
 
           <Link
