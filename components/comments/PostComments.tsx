@@ -58,6 +58,7 @@ export function PostComments({
       <CommentList
         comments={comments}
         isAdmin={true}
+        onDelete={getComments}
       />
 
     </div>
