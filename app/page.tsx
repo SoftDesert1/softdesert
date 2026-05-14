@@ -1,6 +1,8 @@
-import { MainLayout } from "@/components/layout/MainLayout";
-
 import { BreakingNews } from "@/components/animations/BreakingNews";
+
+import {
+  AnimatedSection,
+} from "@/components/animations/AnimatedSection";
 
 import { NewsCard } from "@/components/cards/NewsCard";
 
@@ -17,45 +19,64 @@ export const dynamic =
 
 export default async function Home() {
 
-  const posts = await getPosts();
+  const posts =
+    await getPosts();
 
   const trendingPosts =
     await getTrendingPosts();
 
   return (
 
-      <div className="space-y-12">
+    <div className="space-y-12">
 
-        <BreakingNews />
+      <BreakingNews />
+
+      {/* HERO */}
+
+      <AnimatedSection>
 
         <HeroSection
           posts={posts}
         />
 
+      </AnimatedSection>
+
+      {/* TRENDING */}
+
+      <AnimatedSection delay={0.2}>
+
         <TrendingPosts
           posts={trendingPosts}
         />
 
-        <div className="space-y-2">
+      </AnimatedSection>
 
-          <h1
-            className="
-              text-5xl
-              font-bold
-              text-red-500
-            "
-          >
-            Últimas Notícias
-          </h1>
+      {/* TITLE */}
 
-          <p className="text-gray-400">
+      <div className="space-y-2">
 
-            Confira as novidades
-            do Black Desert
+        <h1
+          className="
+            text-5xl
+            font-bold
+            text-red-500
+          "
+        >
+          Últimas Notícias
+        </h1>
 
-          </p>
+        <p className="text-gray-400">
 
-        </div>
+          Confira as novidades
+          do Black Desert
+
+        </p>
+
+      </div>
+
+      {/* POSTS */}
+
+      <AnimatedSection delay={0.4}>
 
         <div
           className="
@@ -81,7 +102,8 @@ export default async function Home() {
 
         </div>
 
-      </div>
+      </AnimatedSection>
 
+    </div>
   );
 }
