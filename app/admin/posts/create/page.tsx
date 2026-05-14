@@ -12,6 +12,10 @@ from "@/components/layout/MainLayout";
 import { ImageUpload }
 from "@/components/upload/ImageUpload";
 
+import {
+  RichEditor,
+} from "@/components/editor/RichEditor";
+
 export default function AdminPostsPage() {
 
   const [title, setTitle] =
@@ -253,22 +257,10 @@ export default function AdminPostsPage() {
               Conteúdo
             </label>
 
-            <textarea
-              value={content}
-              onChange={(e) =>
-                setContent(e.target.value)
-              }
-              rows={10}
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
+            <RichEditor
+  content={content}
+  onChange={setContent}
+/>
 
           </div>
 
