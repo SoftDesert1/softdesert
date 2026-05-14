@@ -29,7 +29,7 @@ export default async function Home() {
         <BreakingNews />
 
         <HeroSection
-          post={posts[0]}
+          posts={posts}
         />
 
         <TrendingPosts
