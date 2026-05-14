@@ -12,6 +12,9 @@ import { getPosts } from "@/lib/posts/getPosts";
 
 import { getTrendingPosts } from "@/lib/posts/getTrendingPosts";
 
+export const dynamic =
+  "force-dynamic";
+
 export default async function Home() {
 
   const posts = await getPosts();
