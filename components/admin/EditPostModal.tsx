@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+import {
+  RichEditor,
+} from "@/components/editor/RichEditor";
+
 interface EditPostModalProps {
 
   post: any;
@@ -95,22 +99,10 @@ export function EditPostModal({
           "
         />
 
-        <textarea
-          value={content}
-          onChange={(e) =>
-            setContent(e.target.value)
-          }
-          className="
-            w-full
-            h-40
-            bg-black
-            border
-            border-red-900
-            rounded-xl
-            p-4
-            text-white
-          "
-        />
+        <RichEditor
+  content={content}
+  onChange={setContent}
+/>
 
         <div className="flex gap-4">
 
