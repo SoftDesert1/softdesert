@@ -287,8 +287,10 @@ export default async function PostPage({
                   <p className="text-white font-bold">
 
                     {new Date(
-                      post.created_at
-                    ).toLocaleDateString()}
+  post.created_at
+).toLocaleDateString(
+  "pt-BR"
+)}
 
                   </p>
 

@@ -137,8 +137,10 @@ export function CommentList({
                   "
                 >
                   {new Date(
-                    comment.created_at
-                  ).toLocaleDateString()}
+  post.created_at
+).toLocaleDateString(
+  "pt-BR"
+)}
                 </span>
 
               </div>
