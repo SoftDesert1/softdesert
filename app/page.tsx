@@ -31,8 +31,6 @@ export default async function Home() {
 
       <BreakingNews />
 
-      {/* HERO */}
-
       <AnimatedSection>
 
         <HeroSection
@@ -41,8 +39,6 @@ export default async function Home() {
 
       </AnimatedSection>
 
-      {/* TRENDING */}
-
       <AnimatedSection delay={0.2}>
 
         <TrendingPosts
@@ -50,8 +46,6 @@ export default async function Home() {
         />
 
       </AnimatedSection>
-
-      {/* TITLE */}
 
       <div className="space-y-2">
 
@@ -73,8 +67,6 @@ export default async function Home() {
         </p>
 
       </div>
-
-      {/* POSTS */}
 
       <AnimatedSection delay={0.4}>
 
