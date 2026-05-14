@@ -36,19 +36,7 @@ export function RichEditor({
         attributes: {
 
           class:
-            `
-            min-h-[400px]
-            bg-[#111]
-            border
-            border-red-900
-            rounded-2xl
-            p-6
-            text-white
-            outline-none
-            prose
-            prose-invert
-            max-w-none
-          `,
+  "min-h-[400px] bg-[#111] border border-red-900 rounded-2xl p-6 text-white outline-none prose prose-invert max-w-none",
         },
       },
 
