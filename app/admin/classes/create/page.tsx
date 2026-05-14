@@ -9,6 +9,10 @@ from "@/lib/supabase/client";
 import { ImageUpload }
 from "@/components/upload/ImageUpload";
 
+import {
+  RichEditor,
+} from "@/components/editor/RichEditor";
+
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
@@ -369,24 +373,10 @@ export default function AdminClassesPage() {
               Description
             </label>
 
-            <textarea
-              rows={8}
-              value={description}
-              onChange={(e) =>
-                setDescription(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
+            <RichEditor
+  content={content}
+  onChange={setContent}
+/>
 
           </div>
 
