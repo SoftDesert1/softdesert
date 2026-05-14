@@ -134,17 +134,19 @@ export default function AdminPostsPage() {
 
   setSlug(
 
-    value
+  value
 
-      .toLowerCase()
+    .toLowerCase()
 
-      .replaceAll(" ", "-")
+    .normalize("NFD")
 
-      .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
 
-      .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
 
-  );
+    .replace(/\s+/g, "-")
+
+);
 
 }}
               className="
