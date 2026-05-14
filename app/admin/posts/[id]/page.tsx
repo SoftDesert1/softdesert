@@ -6,6 +6,10 @@ import {
 } from "react";
 
 import {
+  RichEditor,
+} from "@/components/editor/RichEditor";
+
+import {
   useParams,
   useRouter,
 } from "next/navigation";
@@ -313,24 +317,10 @@ export default function EditPostPage() {
               Conteúdo
             </label>
 
-            <textarea
-              rows={12}
-              value={content}
-              onChange={(e) =>
-                setContent(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black
-                border
-                border-red-900
-                rounded-xl
-                p-4
-                text-white
-              "
-            />
+            <RichEditor
+  content={content}
+  onChange={setContent}
+/>
 
           </div>
 
