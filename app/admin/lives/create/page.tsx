@@ -78,10 +78,12 @@ export default function CreateLivePage() {
 
     if (error) {
 
-      console.error(error);
+  console.error(error);
 
-      return;
-    }
+  alert(error.message);
+
+  return;
+}
 
     router.push(
       "/admin/lives"
