@@ -374,8 +374,8 @@ export default function AdminClassesPage() {
             </label>
 
             <RichEditor
-  content={content}
-  onChange={setContent}
+  content={description}
+  onChange={setDescription}
 />
 
           </div>
