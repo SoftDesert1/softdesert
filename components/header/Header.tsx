@@ -258,7 +258,7 @@ export function Header({
       mt-1
     "
   >
-    MMO COMMUNITY PORTAL
+    BDO COMMUNITY PORTAL
   </span>
 
 </Link>
