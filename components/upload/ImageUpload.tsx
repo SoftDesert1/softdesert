@@ -31,7 +31,7 @@ export function ImageUpload({
 
       .storage
 
-      .from("uploads")
+      .from("posts")
 
       .upload(
         fileName,
@@ -54,7 +54,7 @@ export function ImageUpload({
 
         .storage
 
-        .from("uploads")
+        .from("posts")
 
         .getPublicUrl(
           fileName
