@@ -85,7 +85,9 @@ export default async function Home() {
             <NewsCard
               key={post.id}
               title={post.title}
-              description={post.content}
+              description={
+  stripHtml(post.content)
+}
               image={post.image}
               slug={post.slug}
             />

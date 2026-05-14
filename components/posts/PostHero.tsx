@@ -91,7 +91,7 @@ export function PostHero({
             max-w-3xl
           "
         >
-          {post.content.slice(0, 180)}...
+          {stripHtml(post.content)}
         </p>
 
       </div>

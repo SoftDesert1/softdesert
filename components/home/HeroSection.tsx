@@ -186,10 +186,7 @@ export function HeroSection({
               max-w-3xl
             "
           >
-            {post.content?.slice(
-              0,
-              220
-            )}...
+            {stripHtml(post.content)}
           </p>
 
           <div
