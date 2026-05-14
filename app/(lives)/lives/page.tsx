@@ -1,61 +1,29 @@
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
-const streamers = [
+import { supabase }
+from "@/lib/supabase/client";
 
-  {
-    id: 1,
+export default async function LivesPage() {
 
-    name: "OneTapinha",
+  const { data: lives } =
+    await supabase
 
-    platform: "Kick",
+      .from("lives")
 
-    description:
-      "Main Berserker PvP",
+      .select("*")
 
-    embed:
-      "https://player.kick.com/onetapinha?muted=true",
+      .eq(
+        "is_live",
+        true
+      )
 
-    url:
-      "https://kick.com/onetapinha",
-  },
-
-  {
-    id: 2,
-
-    name: "Streamer 2",
-
-    platform: "YouTube",
-
-    description:
-      "Endgame Grind",
-
-    embed:
-      "https://www.youtube.com/embed/jfKfPfyJRdk",
-
-    url:
-      "https://youtube.com",
-  },
-
-  {
-    id: 3,
-
-    name: "KhorinGATV",
-
-    platform: "Kick",
-
-    description:
-      "Main Guardian AWK",
-
-    embed:
-      "https://player.kick.com/khoringatv?muted=true",
-
-    url:
-      "https://kick.com/khoringatv",
-  },
-];
-
-export default function LivesPage() {
+      .order(
+        "created_at",
+        {
+          ascending: false,
+        }
+      );
 
   return (
 
@@ -118,8 +86,8 @@ export default function LivesPage() {
                 leading-relaxed
               "
             >
-              Divulgando criadores de conteúdo,
-              PvP grinders, shotcallers e streamers
+              Divulgando streamers,
+              shotcallers e criadores
               da comunidade Black Desert.
             </p>
 
@@ -138,10 +106,10 @@ export default function LivesPage() {
           "
         >
 
-          {streamers.map((streamer) => (
+          {lives?.map((live) => (
 
             <div
-              key={streamer.id}
+              key={live.id}
               className="
                 bg-[#111]
                 border
@@ -156,8 +124,11 @@ export default function LivesPage() {
               <div className="aspect-video">
 
                 <iframe
-                  src={streamer.embed}
-                  className="w-full h-full"
+                  src={live.embed_url}
+                  className="
+                    w-full
+                    h-full
+                  "
                   allowFullScreen
                 />
 
@@ -181,7 +152,7 @@ export default function LivesPage() {
                       font-bold
                     "
                   >
-                    {streamer.platform}
+                    {live.platform}
                   </div>
 
                   <h2
@@ -191,17 +162,19 @@ export default function LivesPage() {
                       text-white
                     "
                   >
-                    {streamer.name}
+                    {live.streamer_name}
                   </h2>
 
                   <p className="text-gray-400">
-                    {streamer.description}
+
+                    {live.description}
+
                   </p>
 
                 </div>
 
                 <a
-                  href={streamer.url}
+                  href={live.stream_url}
                   target="_blank"
                   className="
                     inline-flex
