@@ -300,7 +300,43 @@ export function Header({
     font-bold
   "
 >
+    
   Admin
+</Link>
+<Link
+  href={`/profile/${user.id}`}
+  className="
+    bg-[#111]
+    border
+    border-red-900
+    hover:border-red-500
+    transition
+    px-4
+    py-2
+    rounded-xl
+    text-white
+    font-bold
+  "
+>
+  Perfil
+</Link>
+
+<Link
+  href="/settings/profile"
+  className="
+    bg-[#111]
+    border
+    border-red-900
+    hover:border-red-500
+    transition
+    px-4
+    py-2
+    rounded-xl
+    text-white
+    font-bold
+  "
+>
+  Configurações
 </Link>
 
           <button
