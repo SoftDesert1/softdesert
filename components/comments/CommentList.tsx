@@ -1,13 +1,52 @@
 "use client";
 
+import { supabase }
+from "@/lib/supabase/client";
+
 interface CommentListProps {
 
   comments: any[];
+
+  isAdmin?: boolean;
+
+  onDelete?: () => void;
 }
 
 export function CommentList({
   comments,
+  isAdmin = false,
+  onDelete,
 }: CommentListProps) {
+
+  async function deleteComment(
+    id: number
+  ) {
+
+    const confirmed =
+      confirm(
+        "Excluir comentário?"
+      );
+
+    if (!confirmed) return;
+
+    const { error } =
+      await supabase
+
+        .from("comments")
+
+        .delete()
+
+        .eq("id", id);
+
+    if (error) {
+
+      alert(error.message);
+
+      return;
+    }
+
+    onDelete?.();
+  }
 
   return (
 
@@ -64,30 +103,68 @@ export function CommentList({
               className="
                 flex
                 items-center
-                gap-2
+                justify-between
+                gap-4
                 mb-2
               "
             >
 
-              <h3
+              <div
                 className="
-                  text-white
-                  font-bold
+                  flex
+                  items-center
+                  gap-2
                 "
               >
-                {comment.username}
-              </h3>
 
-              <span
-                className="
-                  text-xs
-                  text-gray-500
-                "
-              >
-                {new Date(
-                  comment.created_at
-                ).toLocaleDateString()}
-              </span>
+                <h3
+                  className="
+                    text-white
+                    font-bold
+                  "
+                >
+                  {comment.username}
+                </h3>
+
+                <span
+                  className="
+                    text-xs
+                    text-gray-500
+                  "
+                >
+                  {new Date(
+                    comment.created_at
+                  ).toLocaleDateString()}
+                </span>
+
+              </div>
+
+              {/* ADMIN DELETE */}
+
+              {isAdmin && (
+
+                <button
+                  onClick={() =>
+                    deleteComment(
+                      comment.id
+                    )
+                  }
+                  className="
+                    bg-red-600
+                    hover:bg-red-700
+                    transition
+                    px-3
+                    py-1
+                    rounded-lg
+                    text-xs
+                    font-bold
+                    text-white
+                  "
+                >
+                  Excluir
+                </button>
+
+              )}
 
             </div>
 
