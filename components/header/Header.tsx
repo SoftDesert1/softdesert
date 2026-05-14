@@ -1,6 +1,7 @@
 "use client";
 
-import { supabase } from "@/lib/supabase/client";
+import { supabase }
+from "@/lib/supabase/client";
 
 import Link from "next/link";
 
@@ -249,111 +250,157 @@ export function Header({
 
         <div
           className="
-            flex
-            items-center
-            gap-4
+            relative
             shrink-0
+            group
           "
         >
 
-          <img
-            src={
-              user.user_metadata
-                .avatar_url
-            }
-            alt="avatar"
-            className="
-              w-11
-              h-11
-              rounded-full
-              border
-              border-red-500
-            "
-          />
-
-          <span
-            className="
-              text-white
-              font-medium
-              hidden
-              md:block
-            "
-          >
-            {
-              user.user_metadata
-                .full_name
-            }
-          </span>
-
-          <Link
-  href="/admin"
-  className="
-    bg-[#111]
-    border
-    border-red-900
-    hover:border-red-500
-    transition
-    px-4
-    py-2
-    rounded-xl
-    text-white
-    font-bold
-  "
->
-    
-  Admin
-</Link>
-<Link
-  href={`/profile/${user.id}`}
-  className="
-    bg-[#111]
-    border
-    border-red-900
-    hover:border-red-500
-    transition
-    px-4
-    py-2
-    rounded-xl
-    text-white
-    font-bold
-  "
->
-  Perfil
-</Link>
-
-<Link
-  href="/settings/profile"
-  className="
-    bg-[#111]
-    border
-    border-red-900
-    hover:border-red-500
-    transition
-    px-4
-    py-2
-    rounded-xl
-    text-white
-    font-bold
-  "
->
-  Configurações
-</Link>
+          {/* AVATAR */}
 
           <button
-            onClick={logout}
             className="
-              bg-red-600
-              hover:bg-red-700
-              transition
-              px-4
-              py-2
-              rounded-xl
-              text-white
-              font-bold
+              flex
+              items-center
+              gap-3
             "
           >
-            Logout
+
+            <img
+              src={
+                user.user_metadata
+                  .avatar_url
+              }
+              alt="avatar"
+              className="
+                w-11
+                h-11
+                rounded-full
+                border
+                border-red-500
+                hover:border-red-400
+                transition
+              "
+            />
+
           </button>
+
+          {/* DROPDOWN */}
+
+          <div
+            className="
+              absolute
+              right-0
+              top-14
+              w-56
+              bg-[#111]
+              border
+              border-red-900
+              rounded-2xl
+              p-3
+              space-y-2
+              opacity-0
+              invisible
+              group-hover:opacity-100
+              group-hover:visible
+              transition
+              z-50
+            "
+          >
+
+            <div
+              className="
+                px-3
+                py-2
+                border-b
+                border-red-900
+                mb-2
+              "
+            >
+
+              <p
+                className="
+                  text-white
+                  font-bold
+                "
+              >
+                {
+                  user.user_metadata
+                    .full_name
+                }
+              </p>
+
+            </div>
+
+            <Link
+              href={`/profile/${user.id}`}
+              className="
+                flex
+                items-center
+                px-3
+                py-3
+                rounded-xl
+                hover:bg-red-600/20
+                transition
+                text-white
+                font-medium
+              "
+            >
+              Perfil
+            </Link>
+
+            <Link
+              href="/settings/profile"
+              className="
+                flex
+                items-center
+                px-3
+                py-3
+                rounded-xl
+                hover:bg-red-600/20
+                transition
+                text-white
+                font-medium
+              "
+            >
+              Configurações
+            </Link>
+
+            <Link
+              href="/admin"
+              className="
+                flex
+                items-center
+                px-3
+                py-3
+                rounded-xl
+                hover:bg-red-600/20
+                transition
+                text-white
+                font-medium
+              "
+            >
+              Admin
+            </Link>
+
+            <button
+              onClick={logout}
+              className="
+                w-full
+                text-left
+                px-3
+                py-3
+                rounded-xl
+                hover:bg-red-600/20
+                transition
+                text-red-500
+                font-medium
+              "
+            >
+              Logout
+            </button>
+
+          </div>
 
         </div>
 
