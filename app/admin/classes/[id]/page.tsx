@@ -429,8 +429,8 @@ export default function EditClassPage() {
             </label>
 
             <RichEditor
-  content={content}
-  onChange={setContent}
+  content={description}
+  onChange={setDescription}
 />
 
           </div>
