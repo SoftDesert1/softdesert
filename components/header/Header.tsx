@@ -210,16 +210,58 @@ export function Header({
         </button>
 
         <Link
-          href="/"
-          className="
-            text-3xl
-            font-black
-            text-red-500
-            tracking-wide
-          "
-        >
-          SoftDesert
-        </Link>
+  href="/"
+  className="
+    flex
+    flex-col
+    leading-none
+    group
+  "
+>
+
+  <div
+    className="
+      text-4xl
+      font-black
+      tracking-tight
+      transition
+      duration-300
+      group-hover:scale-105
+    "
+  >
+
+    <span
+      className="
+        text-white
+      "
+    >
+      Soft
+    </span>
+
+    <span
+      className="
+        text-red-500
+        drop-shadow-[0_0_18px_rgba(239,68,68,0.9)]
+      "
+    >
+      Desert
+    </span>
+
+  </div>
+
+  <span
+    className="
+      text-[10px]
+      uppercase
+      tracking-[0.35em]
+      text-gray-500
+      mt-1
+    "
+  >
+    MMO COMMUNITY PORTAL
+  </span>
+
+</Link>
 
       </div>
 
@@ -315,22 +357,48 @@ export function Header({
             "
           >
 
-            <img
-              src={
-                user.user_metadata
-                  .avatar_url
-              }
-              alt="avatar"
-              className="
-                w-11
-                h-11
-                rounded-full
-                border
-                border-red-500
-                hover:border-red-400
-                transition
-              "
-            />
+            <div className="relative">
+
+  {/* ONLINE DOT */}
+
+  <div
+    className="
+      absolute
+      bottom-0
+      right-0
+      w-3
+      h-3
+      bg-green-500
+      rounded-full
+      border-2
+      border-black
+      z-10
+    "
+  />
+
+  <img
+    src={
+      user.user_metadata
+        .avatar_url
+    }
+    alt="avatar"
+    className="
+      w-11
+      h-11
+      rounded-full
+      border
+      border-red-500
+      hover:border-red-400
+      transition
+      object-cover
+
+      shadow-[0_0_25px_rgba(239,68,68,0.45)]
+
+      hover:scale-105
+    "
+  />
+
+</div>
 
           </button>
 
