@@ -1,29 +1,50 @@
+"use client";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import { MainLayout }
 from "@/components/layout/MainLayout";
 
 import { supabase }
 from "@/lib/supabase/client";
 
-export default async function LivesPage() {
+export default function LivesPage() {
 
-  const { data: lives } =
-    await supabase
+  const [lives, setLives] =
+    useState<any[]>([]);
 
-      .from("lives")
+  useEffect(() => {
 
-      .select("*")
+    fetchLives();
 
-      .eq(
-        "is_live",
-        true
-      )
+  }, []);
 
-      .order(
-        "created_at",
-        {
-          ascending: false,
-        }
-      );
+  async function fetchLives() {
+
+    const { data } =
+      await supabase
+
+        .from("lives")
+
+        .select("*")
+
+        .eq(
+          "is_live",
+          true
+        )
+
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        );
+
+    setLives(data || []);
+  }
 
   return (
 
@@ -106,7 +127,7 @@ export default async function LivesPage() {
           "
         >
 
-          {lives?.map((live) => (
+          {lives.map((live) => (
 
             <div
               key={live.id}
@@ -118,8 +139,6 @@ export default async function LivesPage() {
                 overflow-hidden
               "
             >
-
-              {/* VIDEO */}
 
               <div className="aspect-video">
 
@@ -133,8 +152,6 @@ export default async function LivesPage() {
                 />
 
               </div>
-
-              {/* CONTENT */}
 
               <div className="p-6 space-y-5">
 
