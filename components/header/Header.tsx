@@ -37,6 +37,10 @@ export function Header({
   const [results, setResults] =
     useState<any[]>([]);
 
+  const [isMenuOpen,
+    setIsMenuOpen] =
+      useState(false);
+
   useEffect(() => {
 
     async function getUser() {
@@ -128,6 +132,8 @@ export function Header({
 
     <header
       className="
+        relative
+        z-50
         w-full
         h-20
         border-b
@@ -252,13 +258,17 @@ export function Header({
           className="
             relative
             shrink-0
-            group
           "
         >
 
           {/* AVATAR */}
 
           <button
+            onClick={() =>
+              setIsMenuOpen(
+                !isMenuOpen
+              )
+            }
             className="
               flex
               items-center
@@ -288,7 +298,7 @@ export function Header({
           {/* DROPDOWN */}
 
           <div
-            className="
+            className={`
               absolute
               right-0
               top-14
@@ -299,13 +309,14 @@ export function Header({
               rounded-2xl
               p-3
               space-y-2
-              opacity-0
-              invisible
-              group-hover:opacity-100
-              group-hover:visible
               transition
-              z-50
-            "
+              z-[9999]
+
+              ${isMenuOpen
+                ? "opacity-100 visible"
+                : "opacity-0 invisible"
+              }
+            `}
           >
 
             <div
