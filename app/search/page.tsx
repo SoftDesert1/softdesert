@@ -2,7 +2,15 @@ import { MainLayout } from "@/components/layout/MainLayout";
 
 import { NewsCard } from "@/components/cards/NewsCard";
 
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
 import { searchPosts } from "@/lib/posts/searchPosts";
+
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
 
 interface SearchPageProps {
 

@@ -5,6 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
+import {
   useEffect,
   useState,
 } from "react";

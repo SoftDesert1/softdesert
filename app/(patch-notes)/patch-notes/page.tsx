@@ -7,6 +7,10 @@ from "@/components/posts/NewsCard";
 import { supabase }
 from "@/lib/supabase/client";
 
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
 export const dynamic =
   "force-dynamic";
 

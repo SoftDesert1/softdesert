@@ -14,6 +14,10 @@ import { getPosts } from "@/lib/posts/getPosts";
 
 import { getTrendingPosts } from "@/lib/posts/getTrendingPosts";
 
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
 export const dynamic =
   "force-dynamic";
 

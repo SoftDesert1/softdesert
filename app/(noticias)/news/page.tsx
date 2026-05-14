@@ -4,6 +4,10 @@ from "@/components/layout/MainLayout";
 import { NewsCard }
 from "@/components/posts/NewsCard";
 
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
 import { supabase }
 from "@/lib/supabase/client";
 

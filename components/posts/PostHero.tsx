@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
 interface PostHeroProps {
 
   post: any;
