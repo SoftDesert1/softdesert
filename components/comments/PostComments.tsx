@@ -57,6 +57,7 @@ export function PostComments({
 
       <CommentList
         comments={comments}
+        isAdmin={true}
       />
 
     </div>
