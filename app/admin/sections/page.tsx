@@ -72,8 +72,6 @@ export default function AdminSectionsPage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-7xl
@@ -255,6 +253,5 @@ export default function AdminSectionsPage() {
 
       </div>
 
-    </MainLayout>
   );
 }

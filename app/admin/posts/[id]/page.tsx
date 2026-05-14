@@ -129,20 +129,14 @@ export default function EditPostPage() {
 
     return (
 
-      <MainLayout>
-
         <div className="text-white">
           Carregando...
         </div>
-
-      </MainLayout>
 
     );
   }
 
   return (
-
-    <MainLayout>
 
       <div
         className="
@@ -401,6 +395,5 @@ export default function EditPostPage() {
 
       </div>
 
-    </MainLayout>
   );
 }

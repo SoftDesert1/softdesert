@@ -67,8 +67,6 @@ export default function AdminLivesPage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-7xl
@@ -248,6 +246,5 @@ export default function AdminLivesPage() {
 
       </div>
 
-    </MainLayout>
   );
 }

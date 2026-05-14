@@ -11,8 +11,6 @@ export default async function ClassesPage() {
 
   return (
 
-    <MainLayout>
-
       <div className="space-y-12">
 
         {/* HERO */}
@@ -134,7 +132,6 @@ export default async function ClassesPage() {
         )}
 
       </div>
-
-    </MainLayout>
+      
   );
 }

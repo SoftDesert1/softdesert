@@ -35,8 +35,6 @@ export default async function PostPage({
 
     return (
 
-      <MainLayout>
-
         <div
           className="
             min-h-[50vh]
@@ -58,8 +56,6 @@ export default async function PostPage({
 
         </div>
 
-      </MainLayout>
-
     );
   }
 
@@ -70,8 +66,6 @@ export default async function PostPage({
     );
 
   return (
-
-    <MainLayout>
 
       <div
         className="
@@ -310,6 +304,5 @@ export default async function PostPage({
 
       </div>
 
-    </MainLayout>
   );
 }

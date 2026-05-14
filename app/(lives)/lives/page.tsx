@@ -48,8 +48,6 @@ export default function LivesPage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-7xl
@@ -218,6 +216,5 @@ export default function LivesPage() {
 
       </div>
 
-    </MainLayout>
   );
 }

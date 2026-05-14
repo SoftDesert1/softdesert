@@ -73,8 +73,6 @@ export default function AdminPostsPage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-4xl
@@ -329,8 +327,6 @@ export default function AdminPostsPage() {
         </div>
 
       </div>
-
-    </MainLayout>
 
   );
 }

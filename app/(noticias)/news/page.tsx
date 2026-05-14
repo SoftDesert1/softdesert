@@ -27,8 +27,6 @@ export default async function NewsPage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-7xl
@@ -95,8 +93,6 @@ export default async function NewsPage() {
         </div>
 
       </div>
-
-    </MainLayout>
 
   );
 }

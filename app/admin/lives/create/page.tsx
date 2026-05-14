@@ -92,8 +92,6 @@ export default function CreateLivePage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-3xl
@@ -273,6 +271,5 @@ export default function CreateLivePage() {
 
       </div>
 
-    </MainLayout>
   );
 }

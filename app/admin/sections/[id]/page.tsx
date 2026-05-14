@@ -176,20 +176,14 @@ export default function EditSectionPage() {
 
     return (
 
-      <MainLayout>
-
         <div className="text-white">
           Carregando...
         </div>
-
-      </MainLayout>
 
     );
   }
 
   return (
-
-    <MainLayout>
 
       <div
         className="
@@ -459,6 +453,5 @@ export default function EditSectionPage() {
 
       </div>
 
-    </MainLayout>
   );
 }

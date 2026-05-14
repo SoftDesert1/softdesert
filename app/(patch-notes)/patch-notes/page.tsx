@@ -30,8 +30,6 @@ export default async function PatchNotesPage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-7xl
@@ -98,8 +96,6 @@ export default async function PatchNotesPage() {
         </div>
 
       </div>
-
-    </MainLayout>
 
   );
 }

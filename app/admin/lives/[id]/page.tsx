@@ -157,8 +157,6 @@ export default function EditLivePage() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-3xl
@@ -365,6 +363,5 @@ export default function EditLivePage() {
 
       </div>
 
-    </MainLayout>
   );
 }

@@ -23,8 +23,6 @@ export default async function SearchPage({
 
   return (
 
-    <MainLayout>
-
       <div className="space-y-10">
 
         <div className="space-y-3">
@@ -105,6 +103,5 @@ export default async function SearchPage({
 
       </div>
 
-    </MainLayout>
   );
 }

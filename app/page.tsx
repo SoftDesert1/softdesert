@@ -24,8 +24,6 @@ export default async function Home() {
 
   return (
 
-    <MainLayout>
-
       <div className="space-y-12">
 
         <BreakingNews />
@@ -85,6 +83,5 @@ export default async function Home() {
 
       </div>
 
-    </MainLayout>
   );
 }

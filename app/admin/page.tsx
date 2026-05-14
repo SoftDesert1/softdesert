@@ -7,8 +7,6 @@ export default function AdminDashboard() {
 
   return (
 
-    <MainLayout>
-
       <div
         className="
           max-w-7xl
@@ -233,8 +231,6 @@ export default function AdminDashboard() {
         </div>
 
       </div>
-
-    </MainLayout>
 
   );
 }

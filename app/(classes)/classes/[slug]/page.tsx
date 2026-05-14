@@ -34,8 +34,6 @@ export default async function ClassPage({
 
     return (
 
-      <MainLayout>
-
         <div
           className="
             min-h-[50vh]
@@ -57,14 +55,10 @@ export default async function ClassPage({
 
         </div>
 
-      </MainLayout>
-
     );
   }
 
   return (
-
-    <MainLayout>
 
       <div className="space-y-12">
 
@@ -306,6 +300,5 @@ export default async function ClassPage({
 
       </div>
 
-    </MainLayout>
   );
 }
