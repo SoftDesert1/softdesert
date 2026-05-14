@@ -69,8 +69,9 @@ export default function AdminLivesPage() {
 
     <MainLayout>
 
-      <div
-        className="
-          max-w-7xl
-          mx-auto
-}
+<div
+  className="
+    max-w-7xl
+    mx-auto
+  "
+>
