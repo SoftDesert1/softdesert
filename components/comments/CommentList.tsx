@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { supabase }
 from "@/lib/supabase/client";
 
@@ -117,14 +118,17 @@ export function CommentList({
                 "
               >
 
-                <h3
-                  className="
-                    text-white
-                    font-bold
-                  "
-                >
-                  {comment.username}
-                </h3>
+                <Link
+  href={`/profile/${comment.user_id}`}
+  className="
+    text-white
+    font-bold
+    hover:text-red-500
+    transition
+  "
+>
+  {comment.username}
+</Link>
 
                 <span
                   className="
