@@ -8,10 +8,6 @@ import {
 
 import { searchPosts } from "@/lib/posts/searchPosts";
 
-import {
-  stripHtml,
-} from "@/lib/posts/stripHtml";
-
 interface SearchPageProps {
 
   searchParams: Promise<{
