@@ -49,12 +49,13 @@ export default function SettingsProfilePage() {
   async function fetchProfile() {
 
     const {
-      data: { user },
-    } = await supabase.auth
-      .getUser();
+  data: { user },
+} = await supabase.auth.getUser();
 
-    console.log(user);
-    console.log(user.user_metadata);
+if (!user) return;
+
+console.log(user);
+console.log(user.user_metadata);
 
     if (!user) return;
 
