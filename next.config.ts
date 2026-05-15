@@ -1,12 +1,24 @@
-import type {
-  NextConfig,
-} from "next";
+import type { NextConfig }
+from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig:
+  NextConfig = {
 
   images: {
 
     remotePatterns: [
+
+      {
+        protocol: "https",
+        hostname:
+          "cdn.discordapp.com",
+      },
+
+      {
+        protocol: "https",
+        hostname:
+          "media.discordapp.net",
+      },
 
       {
         protocol: "https",
@@ -17,19 +29,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname:
-          "s1.pearlcdn.com",
-      },
-
-      {
-        protocol: "https",
-        hostname:
           "iofslrvqmnpxymszbdby.supabase.co",
-      },
-
-      {
-        protocol: "https",
-        hostname:
-          "cdn.discordapp.com",
       },
 
     ],
