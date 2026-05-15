@@ -24,8 +24,9 @@ export function MainLayout({
     <div
       className="
         min-h-screen
-    bg-transparent
-    text-white
+        bg-black/10
+        backdrop-blur-[1px]
+        text-white
       "
     >
 
