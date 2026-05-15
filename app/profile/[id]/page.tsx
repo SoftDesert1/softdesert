@@ -98,7 +98,7 @@ export default async function ProfilePage({
           "
         >
 
-          <<img
+          <img
   src={
     profile.avatar ||
 
