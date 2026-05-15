@@ -34,72 +34,103 @@ export default async function NewsPage() {
 
   return (
 
+    <div
+      className="
+        max-w-7xl
+        mx-auto
+        space-y-10
+      "
+    >
+
+      {/* HERO */}
+
       <div
         className="
-          max-w-7xl
-          mx-auto
-          space-y-10
+          relative
+          overflow-hidden
+          rounded-[32px]
+          border
+          border-red-900
+          bg-black/55
+          backdrop-blur-sm
+          px-8
+          py-10
         "
       >
 
-        {/* HEADER */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-r
+            from-red-950/10
+            to-transparent
+            pointer-events-none
+          "
+        />
 
-        <div className="space-y-4">
+        <div className="relative z-10">
 
           <h1
             className="
-              text-6xl
+              text-4xl
+              md:text-5xl
               font-black
               text-white
             "
           >
-            Notícias
+            📰 Notícias
           </h1>
 
           <p
             className="
-              text-gray-400
-              text-xl
+              mt-4
+              text-lg
+              text-gray-300
+              max-w-3xl
             "
           >
             Últimas notícias
             do universo MMO
+            e da comunidade
+            Black Desert.
           </p>
 
         </div>
 
-        {/* POSTS */}
+      </div>
 
-        <div
-          className="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-8
-          "
-        >
+      {/* POSTS */}
 
-          {posts?.map((post) => (
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          xl:grid-cols-3
+          gap-8
+        "
+      >
 
-            <NewsCard
-              key={post.id}
-              title={post.title}
-              description={
-                post.content?.slice(
-                  0,
-                  120
-                ) + "..."
-              }
-              image={post.image}
-              slug={post.slug}
-            />
+        {posts?.map((post) => (
 
-          ))}
+          <NewsCard
+            key={post.id}
+            title={post.title}
+            description={
+              stripHtml(
+                post.content
+              )
+            }
+            image={post.image}
+            slug={post.slug}
+          />
 
-        </div>
+        ))}
 
       </div>
+
+    </div>
 
   );
 }

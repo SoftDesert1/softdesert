@@ -17,24 +17,6 @@ export function TrendingPosts({
 
     <section className="space-y-6">
 
-      <div className="flex items-center gap-3">
-
-        <span className="text-3xl">
-          🔥
-        </span>
-
-        <h2
-          className="
-            text-4xl
-            font-black
-            text-white
-          "
-        >
-          Trending Agora
-        </h2>
-
-      </div>
-
       <div
         className="
           grid

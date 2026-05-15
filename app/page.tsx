@@ -43,6 +43,62 @@ export default async function Home() {
 
       </AnimatedSection>
 
+      {/* EM ALTA */}
+
+      <div
+        className="
+          relative
+          overflow-hidden
+          rounded-[32px]
+          border
+          border-red-900
+          bg-black/55
+          backdrop-blur-sm
+          px-8
+          py-10
+        "
+      >
+
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-r
+            from-red-950/10
+            to-transparent
+            pointer-events-none
+          "
+        />
+
+        <div className="relative z-10">
+
+          <h1
+            className="
+              text-4xl
+              md:text-5xl
+              font-black
+              text-white
+            "
+          >
+            🔥 Em Alta Agora
+          </h1>
+
+          <p
+            className="
+              mt-4
+              text-lg
+              text-gray-300
+              max-w-3xl
+            "
+          >
+            Os conteúdos mais comentados
+            da comunidade Black Desert.
+          </p>
+
+        </div>
+
+      </div>
+
       <AnimatedSection delay={0.2}>
 
         <TrendingPosts
@@ -51,24 +107,59 @@ export default async function Home() {
 
       </AnimatedSection>
 
-      <div className="space-y-2">
+      {/* ÚLTIMAS NOTÍCIAS */}
 
-        <h1
+      <div
+        className="
+          relative
+          overflow-hidden
+          rounded-[32px]
+          border
+          border-red-900
+          bg-black/55
+          backdrop-blur-sm
+          px-8
+          py-10
+        "
+      >
+
+        <div
           className="
-            text-5xl
-            font-bold
-            text-red-500
+            absolute
+            inset-0
+            bg-gradient-to-r
+            from-red-950/10
+            to-transparent
+            pointer-events-none
           "
-        >
-          Últimas Notícias
-        </h1>
+        />
 
-        <p className="text-gray-400">
+        <div className="relative z-10">
 
-          Confira as novidades
-          do Black Desert
+          <h1
+            className="
+              text-4xl
+              md:text-5xl
+              font-black
+              text-white
+            "
+          >
+            📰 Últimas Notícias
+          </h1>
 
-        </p>
+          <p
+            className="
+              mt-4
+              text-lg
+              text-gray-300
+              max-w-3xl
+            "
+          >
+            Atualizações, novidades e conteúdos
+            recentes da comunidade.
+          </p>
+
+        </div>
 
       </div>
 
@@ -90,8 +181,8 @@ export default async function Home() {
               key={post.id}
               title={post.title}
               description={
-  stripHtml(post.content)
-}
+                stripHtml(post.content)
+              }
               image={post.image}
               slug={post.slug}
             />

@@ -15,6 +15,10 @@ import { NewsCard } from "@/components/cards/NewsCard";
 import ScrollButtons
 from "@/components/ui/ScrollButtons";
 
+import {
+  stripHtml,
+} from "@/lib/posts/stripHtml";
+
 interface PostPageProps {
 
   params: Promise<{
@@ -81,9 +85,98 @@ export default async function PostPage({
 
         {/* HERO */}
 
-        <PostHero
-          post={post}
-        />
+        <section
+          className="
+            relative
+            overflow-hidden
+            rounded-[40px]
+            border
+            border-red-900
+            min-h-[700px]
+            flex
+            items-end
+          "
+        >
+
+          {/* IMAGEM */}
+
+          <img
+            src={post.image}
+            alt={post.title}
+            className="
+              absolute
+              inset-0
+              w-full
+              h-full
+              object-cover
+              object-center
+            "
+          />
+
+          {/* OVERLAY */}
+
+          <div
+            className="
+              absolute
+              inset-0
+              bg-black/60
+            "
+          />
+
+          {/* CONTENT */}
+
+          <div
+            className="
+              relative
+              z-10
+              p-12
+              max-w-4xl
+              space-y-6
+            "
+          >
+
+            <div
+              className="
+                inline-flex
+                bg-red-600
+                text-white
+                px-5
+                py-2
+                rounded-full
+                text-sm
+                font-black
+                uppercase
+              "
+            >
+              {post.category}
+            </div>
+
+            <h1
+              className="
+                text-5xl
+                md:text-7xl
+                font-black
+                text-white
+                leading-tight
+              "
+            >
+              {post.title}
+            </h1>
+
+            <p
+              className="
+                text-xl
+                text-gray-200
+                leading-relaxed
+              "
+            >
+              {stripHtml(post.content)
+                .slice(0, 220)}...
+            </p>
+
+          </div>
+
+        </section>
 
         {/* CONTENT */}
 
@@ -125,7 +218,8 @@ export default async function PostPage({
 
             <div
               className="
-                bg-[#111]
+                bg-black/55
+                backdrop-blur-sm
                 border
                 border-red-900
                 rounded-3xl
@@ -162,25 +256,53 @@ export default async function PostPage({
 
                 <div
                   className="
-                    flex
-                    items-center
-                    gap-3
+                    relative
+                    overflow-hidden
+                    rounded-[32px]
+                    border
+                    border-red-900
+                    bg-black/55
+                    backdrop-blur-sm
+                    px-8
+                    py-8
                   "
                 >
 
-                  <span className="text-3xl">
-                    🔥
-                  </span>
-
-                  <h2
+                  <div
                     className="
-                      text-4xl
-                      font-black
-                      text-white
+                      absolute
+                      inset-0
+                      bg-gradient-to-r
+                      from-red-950/10
+                      to-transparent
+                      pointer-events-none
                     "
-                  >
-                    Você também pode gostar
-                  </h2>
+                  />
+
+                  <div className="relative z-10">
+
+                    <h2
+                      className="
+                        text-4xl
+                        font-black
+                        text-white
+                      "
+                    >
+                      🔥 Você também pode gostar
+                    </h2>
+
+                    <p
+                      className="
+                        mt-3
+                        text-gray-300
+                        text-lg
+                      "
+                    >
+                      Conteúdos relacionados
+                      para continuar explorando.
+                    </p>
+
+                  </div>
 
                 </div>
 
@@ -203,7 +325,9 @@ export default async function PostPage({
                           relatedPost.title
                         }
                         description={
-                          relatedPost.content
+                          stripHtml(
+                            relatedPost.content
+                          )
                         }
                         image={
                           relatedPost.image
@@ -240,7 +364,8 @@ export default async function PostPage({
 
             <div
               className="
-                bg-[#111]
+                bg-black/55
+                backdrop-blur-sm
                 border
                 border-red-900
                 rounded-3xl
