@@ -12,14 +12,97 @@ import { PostComments } from "@/components/comments/PostComments";
 
 import { NewsCard } from "@/components/cards/NewsCard";
 
-import ReactMarkdown
-from "react-markdown";
+import {
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
 
 interface PostPageProps {
 
   params: Promise<{
     slug: string;
   }>;
+}
+
+function ScrollButtons() {
+
+  return (
+
+    <div
+      className="
+        fixed
+        right-6
+        top-1/2
+        -translate-y-1/2
+        z-50
+        flex
+        flex-col
+        gap-4
+      "
+    >
+
+      <button
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }
+        className="
+          w-14
+          h-14
+          rounded-2xl
+          bg-[#111]
+          border
+          border-red-900
+          text-red-500
+          flex
+          items-center
+          justify-center
+          hover:bg-red-600
+          hover:text-white
+          hover:border-red-500
+          transition
+        "
+      >
+
+        <ChevronUp size={28} />
+
+      </button>
+
+      <button
+        onClick={() =>
+          window.scrollTo({
+            top:
+              document.body
+                .scrollHeight,
+            behavior: "smooth",
+          })
+        }
+        className="
+          w-14
+          h-14
+          rounded-2xl
+          bg-[#111]
+          border
+          border-red-900
+          text-red-500
+          flex
+          items-center
+          justify-center
+          hover:bg-red-600
+          hover:text-white
+          hover:border-red-500
+          transition
+        "
+      >
+
+        <ChevronDown size={28} />
+
+      </button>
+
+    </div>
+  );
 }
 
 export default async function PostPage({
@@ -35,26 +118,26 @@ export default async function PostPage({
 
     return (
 
-        <div
+      <div
+        className="
+          min-h-[50vh]
+          flex
+          items-center
+          justify-center
+        "
+      >
+
+        <h1
           className="
-            min-h-[50vh]
-            flex
-            items-center
-            justify-center
+            text-4xl
+            font-black
+            text-white
           "
         >
+          Post não encontrado
+        </h1>
 
-          <h1
-            className="
-              text-4xl
-              font-black
-              text-white
-            "
-          >
-            Post não encontrado
-          </h1>
-
-        </div>
+      </div>
 
     );
   }
@@ -66,6 +149,10 @@ export default async function PostPage({
     );
 
   return (
+
+    <>
+
+      <ScrollButtons />
 
       <div
         className="
@@ -133,42 +220,20 @@ export default async function PostPage({
                 className="
                   prose
                   prose-invert
-                  prose-lg
                   max-w-none
+
+                  prose-headings:text-white
+                  prose-p:text-gray-300
+                  prose-strong:text-white
+                  prose-li:text-gray-300
+
+                  prose-blockquote:border-red-500
+                  prose-blockquote:text-gray-400
                 "
-              >
-
-                <div
-  className="
-    prose
-    prose-invert
-    prose-red
-    max-w-none
-  "
->
-
-  <div
-  className="
-    prose
-    prose-invert
-    max-w-none
-
-    prose-headings:text-white
-    prose-p:text-gray-300
-    prose-strong:text-white
-    prose-li:text-gray-300
-
-    prose-blockquote:border-red-500
-    prose-blockquote:text-gray-400
-  "
-  dangerouslySetInnerHTML={{
-    __html: post.content,
-  }}
-/>
-
-</div>
-
-              </div>
+                dangerouslySetInnerHTML={{
+                  __html: post.content,
+                }}
+              />
 
             </div>
 
@@ -300,10 +365,10 @@ export default async function PostPage({
                   <p className="text-white font-bold">
 
                     {new Date(
-  post.created_at
-).toLocaleDateString(
-  "pt-BR"
-)}
+                      post.created_at
+                    ).toLocaleDateString(
+                      "pt-BR"
+                    )}
 
                   </p>
 
@@ -318,6 +383,8 @@ export default async function PostPage({
         </div>
 
       </div>
+
+    </>
 
   );
 }
