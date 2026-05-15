@@ -99,17 +99,18 @@ export default async function ProfilePage({
         >
 
           <img
-            src={profile.avatar}
-            alt={profile.username}
-            className="
-              w-32
-              h-32
-              rounded-full
-              border-4
-              border-red-500
-              object-cover
-            "
-          />
+  src={profile.avatar}
+  alt={profile.username}
+  className="
+    w-32
+    h-32
+    rounded-full
+    border-4
+    border-red-500
+    object-cover
+    overflow-hidden
+  "
+/>
 
           <div className="space-y-2">
 
