@@ -126,11 +126,15 @@ export default function SettingsProfilePage() {
 
         .from("profiles")
 
+        console.log(avatar)
+
         .update({
 
           username,
 
           banner,
+
+          avatar,
 
           bio,
 
