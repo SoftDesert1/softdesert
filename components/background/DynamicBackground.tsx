@@ -8,43 +8,43 @@ const backgrounds = {
   0: {
     city: "odyllita",
     overlay:
-      "bg-black/75",
+      "bg-black/0",
   },
 
   1: {
     city: "heidel",
     overlay:
-      "bg-black/70",
+      "bg-black/0",
   },
 
   2: {
     city: "velia",
     overlay:
-      "bg-black/65",
+      "bg-black/0",
   },
 
   3: {
     city: "calpheon",
     overlay:
-      "bg-black/75",
+      "bg-black/0",
   },
 
   4: {
     city: "kamasylvia",
     overlay:
-      "bg-black/60",
+      "bg-black/0",
   },
 
   5: {
     city: "valencia",
     overlay:
-      "bg-black/65",
+      "bg-black/0",
   },
 
   6: {
     city: "drieghan",
     overlay:
-      "bg-black/70",
+      "bg-black/0",
   },
 };
 
@@ -101,14 +101,6 @@ export default function DynamicBackground() {
           inset-0
           ${current.overlay}
         `}
-      />
-
-      <div
-        className="
-          absolute
-          inset-0
-          backdrop-blur-[2px]
-        "
       />
 
     </div>
