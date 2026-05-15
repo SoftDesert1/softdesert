@@ -40,28 +40,27 @@ export default function SettingsProfilePage() {
   const [youtube, setYoutube] =
     useState("");
 
-  useEffect(() => {
-
-    fetchProfile();
-
-  }, []);
-
   async function fetchProfile() {
 
     const {
-  data: { user },
-} = await supabase.auth.getUser();
-
-if (!user) return;
-
-console.log(user);
-console.log(user.user_metadata);
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) return;
 
+    console.log(user);
+
     console.log(
-  user.user_metadata
-);
+      user.user_metadata
+    );
+
+    console.log(
+      user.user_metadata.avatar_url
+    );
+
+    console.log(
+      user.user_metadata.picture
+    );
 
     setUserId(user.id);
 
@@ -84,17 +83,17 @@ console.log(user.user_metadata);
 
     setAvatar(
 
-  data.avatar ||
+      data.avatar ||
 
-  user.user_metadata
-    .avatar_url ||
+      user.user_metadata
+        .avatar_url ||
 
-  user.user_metadata
-    .picture ||
+      user.user_metadata
+        .picture ||
 
-  ""
+      ""
 
-);
+    );
 
     setBanner(
       data.banner || ""
@@ -123,9 +122,15 @@ console.log(user.user_metadata);
     setLoading(false);
   }
 
+  useEffect(() => {
+
+    fetchProfile();
+
+  }, []);
+
   async function saveProfile() {
 
-    console.log(avatar)
+    console.log(avatar);
 
     const { error } =
       await supabase
