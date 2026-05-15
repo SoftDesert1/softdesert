@@ -1,4 +1,32 @@
 "use client";
+
+import {
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
+
+export default function ScrollButtons() {
+
+  function scrollToTop() {
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function scrollToBottom() {
+
+    window.scrollTo({
+      top:
+        document.body
+          .scrollHeight,
+      behavior: "smooth",
+    });
+  }
+
+  return (
+
     <div
       className="
         fixed
@@ -29,7 +57,6 @@
           hover:text-white
           hover:border-red-500
           transition
-          shadow-[0_0_20px_rgba(255,0,0,0.15)]
         "
       >
 
@@ -54,7 +81,6 @@
           hover:text-white
           hover:border-red-500
           transition
-          shadow-[0_0_20px_rgba(255,0,0,0.15)]
         "
       >
 
