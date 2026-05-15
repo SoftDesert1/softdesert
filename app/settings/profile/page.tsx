@@ -133,32 +133,45 @@ export default function SettingsProfilePage() {
     console.log(avatar);
 
     const { error } =
-      await supabase
+  await supabase
 
-        .from("profiles")
+    .from("profiles")
 
-        .update({
+    .update({
 
-          username,
+      username,
 
-          banner,
+      banner,
 
-          avatar,
+      avatar:
+        avatar ||
 
-          bio,
+        (
+          await supabase.auth.getUser()
+        ).data.user?.user_metadata
+          ?.avatar_url ||
 
-          main_class:
-            mainClass,
+        (
+          await supabase.auth.getUser()
+        ).data.user?.user_metadata
+          ?.picture ||
 
-          guild,
+        "",
 
-          twitch,
+      bio,
 
-          youtube,
+      main_class:
+        mainClass,
 
-        })
+      guild,
 
-        .eq("id", userId);
+      twitch,
+
+      youtube,
+
+    })
+
+    .eq("id", userId);
 
     if (error) {
 
