@@ -89,11 +89,18 @@ export default async function PatchNotesPage() {
               key={post.id}
               title={post.title}
               description={
-                post.content?.slice(
-                  0,
-                  120
-                ) + "..."
-              }
+  post.content
+
+    ?.replace(
+      /<[^>]*>/g,
+      ""
+    )
+
+    .slice(
+      0,
+      120
+    ) + "..."
+}
               image={post.image}
               slug={post.slug}
             />
