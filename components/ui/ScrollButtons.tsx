@@ -5,7 +5,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-export default function ScrollButtons() {
+export function ScrollButtons() {
 
   function scrollToTop() {
 
@@ -30,21 +30,25 @@ export default function ScrollButtons() {
     <div
       className="
         fixed
-        right-6
+        right-4
+        md:right-6
         top-1/2
         -translate-y-1/2
         z-50
         flex
         flex-col
-        gap-4
+        gap-3
       "
     >
 
       <button
         onClick={scrollToTop}
+        aria-label="Ir para o topo"
         className="
-          w-14
-          h-14
+          w-12
+          h-12
+          md:w-14
+          md:h-14
           rounded-2xl
           bg-[#111]
           border
@@ -53,22 +57,30 @@ export default function ScrollButtons() {
           flex
           items-center
           justify-center
+          shadow-lg
+          backdrop-blur-sm
           hover:bg-red-600
           hover:text-white
           hover:border-red-500
+          hover:scale-105
+          active:scale-95
           transition
+          duration-200
         "
       >
 
-        <ChevronUp size={28} />
+        <ChevronUp size={26} />
 
       </button>
 
       <button
         onClick={scrollToBottom}
+        aria-label="Ir para o final"
         className="
-          w-14
-          h-14
+          w-12
+          h-12
+          md:w-14
+          md:h-14
           rounded-2xl
           bg-[#111]
           border
@@ -77,17 +89,24 @@ export default function ScrollButtons() {
           flex
           items-center
           justify-center
+          shadow-lg
+          backdrop-blur-sm
           hover:bg-red-600
           hover:text-white
           hover:border-red-500
+          hover:scale-105
+          active:scale-95
           transition
+          duration-200
         "
       >
 
-        <ChevronDown size={28} />
+        <ChevronDown size={26} />
 
       </button>
 
     </div>
   );
 }
+
+export default ScrollButtons;
