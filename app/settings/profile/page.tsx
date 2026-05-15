@@ -75,8 +75,15 @@ export default function SettingsProfilePage() {
     );
 
     setAvatar(
-      data.avatar || ""
-    );
+
+  data.avatar ||
+
+  user.user_metadata
+    .avatar_url ||
+
+  ""
+
+);
 
     setBanner(
       data.banner || ""
@@ -115,8 +122,6 @@ export default function SettingsProfilePage() {
         .update({
 
           username,
-
-          avatar,
 
           banner,
 
@@ -198,25 +203,6 @@ export default function SettingsProfilePage() {
           value={username}
           onChange={(e) =>
             setUsername(
-              e.target.value
-            )
-          }
-          className="
-            w-full
-            bg-[#111]
-            border
-            border-red-900
-            rounded-2xl
-            p-4
-            text-white
-          "
-        />
-
-        <input
-          placeholder="Avatar URL"
-          value={avatar}
-          onChange={(e) =>
-            setAvatar(
               e.target.value
             )
           }
