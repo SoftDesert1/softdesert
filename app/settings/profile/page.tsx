@@ -85,6 +85,9 @@ export default function SettingsProfilePage() {
   user.user_metadata
     .avatar_url ||
 
+  user.user_metadata
+    .picture ||
+
   ""
 
 );

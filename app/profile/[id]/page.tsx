@@ -100,9 +100,7 @@ export default async function ProfilePage({
 
           <img
   src={
-    profile.avatar ||
-
-    "https://cdn.discordapp.com/embed/avatars/0.png"
+    profile.avatar
   }
   alt={profile.username}
   className="
