@@ -8,43 +8,43 @@ const backgrounds = {
   0: {
     city: "odyllita",
     overlay:
-      "bg-black/75",
+      "bg-transparent",
   },
 
   1: {
     city: "heidel",
     overlay:
-      "bg-black/70",
+      "bg-transparent",
   },
 
   2: {
     city: "velia",
     overlay:
-      "bg-black/65",
+      "bg-transparent",
   },
 
   3: {
     city: "calpheon",
     overlay:
-      "bg-black/75",
+      "bg-transparent",
   },
 
   4: {
     city: "kamasylvia",
     overlay:
-      "bg-black/60",
+      "bg-transparent",
   },
 
   5: {
     city: "valencia",
     overlay:
-      "bg-black/65",
+      "bg-transparent",
   },
 
   6: {
     city: "drieghan",
     overlay:
-      "bg-black/70",
+      "bg-transparent",
   },
 };
 
