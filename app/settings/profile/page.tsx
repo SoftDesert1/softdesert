@@ -55,6 +55,10 @@ export default function SettingsProfilePage() {
 
     if (!user) return;
 
+    console.log(
+  user.user_metadata
+);
+
     setUserId(user.id);
 
     const { data } =
