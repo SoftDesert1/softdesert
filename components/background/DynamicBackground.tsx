@@ -104,12 +104,12 @@ export default function DynamicBackground() {
       />
 
       <div
-  className="
-    absolute
-    inset-0
-    backdrop-blur-[2px]
-  "
-/>
+        className="
+          absolute
+          inset-0
+          backdrop-blur-[2px]
+        "
+      />
 
     </div>
   );

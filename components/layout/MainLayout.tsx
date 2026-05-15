@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 
-import { Header } from "../header/Header";
-import { Sidebar } from "../sidebar/Sidebar";
+import { Header }
+from "../header/Header";
+
+import { Sidebar }
+from "../sidebar/Sidebar";
 
 export function MainLayout({
   children,
@@ -11,11 +14,21 @@ export function MainLayout({
   children: React.ReactNode;
 }) {
 
-  const [isSidebarOpen, setIsSidebarOpen] =
-    useState(false);
+  const [
+    isSidebarOpen,
+    setIsSidebarOpen,
+  ] = useState(false);
 
   return (
-    <div className="bg-black text-white min-h-screen">
+
+    <div
+      className="
+        min-h-screen
+        bg-black/60
+        backdrop-blur-sm
+        text-white
+      "
+    >
 
       <Header
         onOpenSidebar={() =>
@@ -31,7 +44,9 @@ export function MainLayout({
       />
 
       <main className="p-8">
+
         {children}
+
       </main>
 
     </div>
