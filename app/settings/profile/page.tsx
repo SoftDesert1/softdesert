@@ -53,6 +53,9 @@ export default function SettingsProfilePage() {
     } = await supabase.auth
       .getUser();
 
+    console.log(user);
+    console.log(user.user_metadata);
+
     if (!user) return;
 
     console.log(
