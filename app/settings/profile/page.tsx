@@ -121,12 +121,12 @@ export default function SettingsProfilePage() {
 
   async function saveProfile() {
 
+    console.log(avatar)
+
     const { error } =
       await supabase
 
         .from("profiles")
-
-        console.log(avatar)
 
         .update({
 
