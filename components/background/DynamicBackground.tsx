@@ -91,7 +91,7 @@ export default function DynamicBackground() {
         "
         style={{
           backgroundImage:
-            `url(/backgrounds/heidel.png)`,
+            `url(/backgrounds/${current.city}.png)`,
         }}
       />
 
