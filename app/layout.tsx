@@ -1,6 +1,12 @@
 import type { Metadata }
 from "next";
 
+import DynamicBackground
+from "@/components/background/DynamicBackground";
+
+import BackgroundParticles
+from "@/components/background/BackgroundParticles";
+
 import {
   Geist,
   Geist_Mono,
@@ -56,6 +62,10 @@ export default function RootLayout({
     >
 
       <body className="min-h-full">
+
+        <DynamicBackground />
+
+        <BackgroundParticles />
 
         <MainLayout>
 
