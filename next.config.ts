@@ -1,8 +1,6 @@
-import type { NextConfig }
-from "next";
+import type { NextConfig } from "next";
 
-const nextConfig:
-  NextConfig = {
+const nextConfig: NextConfig = {
 
   images: {
 
@@ -24,6 +22,12 @@ const nextConfig:
         protocol: "https",
         hostname:
           "images.unsplash.com",
+      },
+
+      {
+        protocol: "https",
+        hostname:
+          "s1.pearlcdn.com",
       },
 
       {
