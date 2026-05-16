@@ -5,7 +5,13 @@ import {
   useState,
 } from "react";
 
-import { supabase } from "@/lib/supabase/client";
+import {
+  motion,
+  AnimatePresence,
+} from "framer-motion";
+
+import { supabase }
+from "@/lib/supabase/client";
 
 interface LikeButtonProps {
 
@@ -27,28 +33,51 @@ export function LikeButton({
 
   async function getLikes() {
 
-    const { count } = await supabase
-      .from("likes")
-      .select("*", {
-        count: "exact",
-        head: true,
-      })
-      .eq("post_id", postId);
+    const { count } =
+      await supabase
+
+        .from("likes")
+
+        .select(
+          "*",
+          {
+            count: "exact",
+            head: true,
+          }
+        )
+
+        .eq(
+          "post_id",
+          postId
+        );
 
     setLikes(count || 0);
 
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } =
+      await supabase.auth.getUser();
 
     if (!user) return;
 
-    const { data } = await supabase
-      .from("likes")
-      .select("*")
-      .eq("post_id", postId)
-      .eq("user_id", user.id)
-      .single();
+    const { data } =
+      await supabase
+
+        .from("likes")
+
+        .select("*")
+
+        .eq(
+          "post_id",
+          postId
+        )
+
+        .eq(
+          "user_id",
+          user.id
+        )
+
+        .single();
 
     setLiked(!!data);
   }
@@ -59,7 +88,8 @@ export function LikeButton({
 
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } =
+      await supabase.auth.getUser();
 
     if (!user) {
 
@@ -75,27 +105,47 @@ export function LikeButton({
     if (liked) {
 
       await supabase
+
         .from("likes")
+
         .delete()
-        .eq("post_id", postId)
-        .eq("user_id", user.id);
+
+        .eq(
+          "post_id",
+          postId
+        )
+
+        .eq(
+          "user_id",
+          user.id
+        );
 
       setLiked(false);
 
-      setLikes((prev) => prev - 1);
+      setLikes(
+        (prev) => prev - 1
+      );
 
     } else {
 
       await supabase
+
         .from("likes")
+
         .insert({
+
           post_id: postId,
-          user_id: user.id,
+
+          user_id:
+            user.id,
+
         });
 
       setLiked(true);
 
-      setLikes((prev) => prev + 1);
+      setLikes(
+        (prev) => prev + 1
+      );
     }
 
     setLoading(false);
@@ -109,45 +159,201 @@ export function LikeButton({
 
   return (
 
-    <button
+    <motion.button
+
+      whileHover={{
+        scale: 1.03,
+      }}
+
+      whileTap={{
+        scale: 0.96,
+      }}
+
       onClick={toggleLike}
+
       disabled={loading}
-      className="
+
+      className={`
+        relative
+        overflow-hidden
+
         flex
         items-center
-        gap-3
-        bg-[#111]
+        gap-4
+
+        px-7
+        py-5
+
+        rounded-[24px]
+
         border
-        border-red-900
-        rounded-xl
-        px-6
-        py-3
-        text-white
-        hover:border-red-500
-        transition
-      "
+
+        transition-all
+        duration-300
+
+        backdrop-blur-md
+
+        ${
+          liked
+
+            ? `
+              border-red-500
+              bg-red-500/15
+              shadow-[0_0_30px_rgba(255,0,0,0.25)]
+            `
+
+            : `
+              border-red-900
+              bg-black/65
+              hover:border-red-500
+              hover:bg-red-500/10
+            `
+        }
+
+        ${
+          loading
+            ? "opacity-70"
+            : ""
+        }
+      `}
     >
 
-      <span
-        className={`
-          text-2xl
-          transition
-          ${
-            liked
-              ? "text-red-500"
-              : "text-white"
-          }
-        `}
+      {/* GLOW */}
+
+      <div
+        className="
+          absolute
+          inset-0
+
+          bg-gradient-to-r
+          from-red-500/5
+          to-transparent
+
+          pointer-events-none
+        "
+      />
+
+      {/* HEART */}
+
+      <motion.div
+
+        animate={
+          liked
+
+            ? {
+                scale: [
+                  1,
+                  1.4,
+                  1,
+                ],
+              }
+
+            : {}
+        }
+
+        transition={{
+          duration: 0.4,
+        }}
+
+        className="
+          relative
+          z-10
+        "
       >
-        ♥
-      </span>
 
-      <span className="font-semibold">
+        <span
+          className={`
+            text-3xl
 
-        {likes} curtidas
+            ${
+              liked
 
-      </span>
+                ? "text-red-400"
 
-    </button>
+                : "text-red-500"
+            }
+          `}
+        >
+          ♥
+        </span>
+
+      </motion.div>
+
+      {/* TEXT */}
+
+      <div
+        className="
+          relative
+          z-10
+
+          flex
+          flex-col
+          items-start
+        "
+      >
+
+        <span
+          className="
+            text-white
+            font-black
+            text-xl
+            leading-none
+          "
+        >
+          {likes}
+        </span>
+
+        <span
+          className="
+            text-gray-400
+            text-sm
+          "
+        >
+          curtidas
+        </span>
+
+      </div>
+
+      {/* PARTICLE */}
+
+      <AnimatePresence>
+
+        {liked && (
+
+          <motion.div
+
+            initial={{
+              opacity: 1,
+              scale: 0,
+            }}
+
+            animate={{
+              opacity: 0,
+              scale: 2.2,
+            }}
+
+            exit={{
+              opacity: 0,
+            }}
+
+            transition={{
+              duration: 0.8,
+            }}
+
+            className="
+              absolute
+              inset-0
+
+              rounded-full
+
+              bg-red-500/20
+            "
+          />
+
+        )}
+
+      </AnimatePresence>
+
+    </motion.button>
   );
 }
