@@ -244,55 +244,122 @@ export default async function SuggestionsPage() {
 
               {/* ACTIONS */}
 
-              <div
-                className="
-                  flex
-                  items-center
-                  gap-4
-                "
-              >
+<div
+  className="
+    flex
+    items-center
+    gap-4
+  "
+>
 
-                <button
-                  className="
-                    bg-green-600
+  {/* APROVAR */}
 
-                    hover:bg-green-700
+  <form
+    action={async () => {
 
-                    transition
+      "use server";
 
-                    px-6
-                    py-3
+      await fetch(
 
-                    rounded-2xl
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/approve-suggestion`,
 
-                    text-white
-                    font-bold
-                  "
-                >
-                  Aprovar
-                </button>
+        {
+          method: "POST",
 
-                <button
-                  className="
-                    bg-red-600
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
 
-                    hover:bg-red-700
+          body: JSON.stringify({
 
-                    transition
+            suggestionId:
+              suggestion.id,
 
-                    px-6
-                    py-3
+            adminName:
+              "SoftDesert Team",
 
-                    rounded-2xl
+          }),
+        }
+      );
+    }}
+  >
 
-                    text-white
-                    font-bold
-                  "
-                >
-                  Rejeitar
-                </button>
+    <button
+      className="
+        bg-green-600
 
-              </div>
+        hover:bg-green-700
+
+        transition
+
+        px-6
+        py-3
+
+        rounded-2xl
+
+        text-white
+        font-bold
+      "
+    >
+      Aprovar
+    </button>
+
+  </form>
+
+  {/* REJEITAR */}
+
+  <form
+    action={async () => {
+
+      "use server";
+
+      await fetch(
+
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/reject-suggestion`,
+
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify({
+
+            suggestionId:
+              suggestion.id,
+
+          }),
+        }
+      );
+    }}
+  >
+
+    <button
+      className="
+        bg-red-600
+
+        hover:bg-red-700
+
+        transition
+
+        px-6
+        py-3
+
+        rounded-2xl
+
+        text-white
+        font-bold
+      "
+    >
+      Rejeitar
+    </button>
+
+  </form>
+
+</div>
 
             </div>
 
