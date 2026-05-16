@@ -224,6 +224,7 @@ export default async function PostPage({
                 border-red-900
                 rounded-3xl
                 p-10
+                space-y-10
               "
             >
 
@@ -245,6 +246,125 @@ export default async function PostPage({
                   __html: post.content,
                 }}
               />
+
+              {/* CREDITS */}
+
+              <div
+                className="
+                  border-t
+                  border-red-900/40
+
+                  pt-8
+
+                  flex
+                  flex-col
+                  gap-4
+                "
+              >
+
+                {post.created_by && (
+
+                  <div
+                    className="
+                      flex
+                      items-center
+                      gap-3
+                    "
+                  >
+
+                    <div
+                      className="
+                        w-10
+                        h-10
+
+                        rounded-2xl
+
+                        bg-red-600
+
+                        flex
+                        items-center
+                        justify-center
+
+                        text-white
+                        font-black
+                      "
+                    >
+                      ✍️
+                    </div>
+
+                    <div>
+
+                      <p className="text-gray-500 text-sm">
+                        Criado por
+                      </p>
+
+                      <p
+                        className="
+                          text-white
+                          font-bold
+                        "
+                      >
+                        {post.created_by}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                )}
+
+                {post.suggested_by && (
+
+                  <div
+                    className="
+                      flex
+                      items-center
+                      gap-3
+                    "
+                  >
+
+                    <div
+                      className="
+                        w-10
+                        h-10
+
+                        rounded-2xl
+
+                        bg-red-950
+
+                        flex
+                        items-center
+                        justify-center
+
+                        text-red-400
+                        font-black
+                      "
+                    >
+                      💡
+                    </div>
+
+                    <div>
+
+                      <p className="text-gray-500 text-sm">
+                        Sugerido por
+                      </p>
+
+                      <p
+                        className="
+                          text-red-400
+                          font-bold
+                        "
+                      >
+                        {post.suggested_by}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                )}
+
+              </div>
 
             </div>
 
