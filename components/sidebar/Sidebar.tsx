@@ -214,52 +214,14 @@ export function Sidebar({
             onClose={onClose}
           />
 
+          <SidebarLink
+            href="/suggest-post"
+            icon={<Newspaper size={20} />}
+            label="Sugestões"
+            onClose={onClose}
+          />
+
         </nav>
-
-        {/* FOOTER */}
-
-        <div
-          className="
-            px-6
-            pb-10
-            pt-4
-          "
-        >
-
-          <div
-            className="
-              rounded-3xl
-
-              border
-              border-red-900/40
-
-              bg-gradient-to-br
-              from-red-950/40
-              to-black
-
-              p-5
-            "
-          >
-
-            <p
-              className="
-                text-sm
-                text-gray-400
-                leading-relaxed
-              "
-            >
-              Explore builds,
-              patch notes,
-              guias, PvP,
-              notícias e
-              conteúdo da
-              comunidade
-              Black Desert.
-            </p>
-
-          </div>
-
-        </div>
 
       </aside>
 
