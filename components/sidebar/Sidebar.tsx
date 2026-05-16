@@ -2,8 +2,19 @@
 
 import Link from "next/link";
 
+import {
+  Home,
+  Newspaper,
+  Swords,
+  ScrollText,
+  Radio,
+  X,
+} from "lucide-react";
+
 interface SidebarProps {
+
   isOpen: boolean;
+
   onClose: () => void;
 }
 
@@ -11,75 +22,320 @@ export function Sidebar({
   isOpen,
   onClose,
 }: SidebarProps) {
+
   return (
+
     <>
-      {/* Overlay */}
 
-      {isOpen && (
-        <div
-          onClick={onClose}
-          className="fixed inset-0 bg-black/70 z-40"
-        />
-      )}
+      {/* OVERLAY */}
 
-      {/* Sidebar */}
+      <div
+        onClick={onClose}
+        className={`
+          fixed
+          inset-0
+          bg-black/70
+          backdrop-blur-sm
+          z-40
+          transition-opacity
+          duration-300
+
+          ${isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+          }
+        `}
+      />
+
+      {/* SIDEBAR */}
 
       <aside
         className={`
-          fixed top-0 left-0 z-50
-          h-screen w-64
-          bg-[#0a0a0a]
-          border-r border-red-900
-          p-6
-          transform transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          fixed
+          top-0
+          left-0
+          z-50
+
+          h-dvh
+          w-[300px]
+
+          overflow-y-auto
+
+          bg-black/80
+          backdrop-blur-2xl
+
+          border-r
+          border-red-900/60
+
+          shadow-[0_0_40px_rgba(255,0,0,0.15)]
+
+          transform
+          transition-transform
+          duration-500
+
+          ${isOpen
+            ? "translate-x-0"
+            : "-translate-x-full"
+          }
         `}
       >
 
-        <h2 className="text-2xl font-bold text-red-500 mb-10">
-          SoftDesert
-        </h2>
+        {/* HEADER */}
 
-        <nav className="flex flex-col gap-5">
+        <div
+          className="
+            sticky
+            top-0
+            z-20
 
-          <Link
+            flex
+            items-center
+            justify-between
+
+            px-6
+            py-6
+
+            bg-black/70
+            backdrop-blur-xl
+
+            border-b
+            border-red-900/40
+          "
+        >
+
+          <div className="space-y-1">
+
+            <h2
+              className="
+                text-3xl
+                font-black
+                text-white
+              "
+            >
+              <span className="text-white">
+                Soft
+              </span>
+
+              <span className="text-red-500">
+                Desert
+              </span>
+            </h2>
+
+            <p
+              className="
+                text-xs
+                uppercase
+                tracking-[0.3em]
+                text-gray-500
+              "
+            >
+              BDO Community
+            </p>
+
+          </div>
+
+          <button
+            onClick={onClose}
+            className="
+              w-11
+              h-11
+
+              rounded-2xl
+
+              bg-[#111]
+
+              border
+              border-red-900/50
+
+              flex
+              items-center
+              justify-center
+
+              text-gray-400
+
+              hover:bg-red-600
+              hover:text-white
+              hover:border-red-500
+
+              transition
+            "
+          >
+
+            <X size={20} />
+
+          </button>
+
+        </div>
+
+        {/* MENU */}
+
+        <nav
+          className="
+            flex
+            flex-col
+            gap-3
+
+            p-6
+          "
+        >
+
+          <SidebarLink
             href="/"
-            className="text-gray-300 hover:text-red-500 transition"
-          >
-            Home
-          </Link>
+            icon={<Home size={20} />}
+            label="Home"
+            onClose={onClose}
+          />
 
-          <Link
+          <SidebarLink
             href="/news"
-            className="text-gray-300 hover:text-red-500 transition"
-          >
-            Notícias
-          </Link>
+            icon={<Newspaper size={20} />}
+            label="Notícias"
+            onClose={onClose}
+          />
 
-          <Link
+          <SidebarLink
             href="/classes"
-            className="text-gray-300 hover:text-red-500 transition"
-          >
-            Classes
-          </Link>
+            icon={<Swords size={20} />}
+            label="Classes"
+            onClose={onClose}
+          />
 
-          <Link
+          <SidebarLink
             href="/patch-notes"
-            className="text-gray-300 hover:text-red-500 transition"
-          >
-            Patch Notes
-          </Link>
+            icon={<ScrollText size={20} />}
+            label="Patch Notes"
+            onClose={onClose}
+          />
 
-          <Link
+          <SidebarLink
             href="/lives"
-            className="text-gray-300 hover:text-red-500 transition"
-          >
-            Lives
-          </Link>
+            icon={<Radio size={20} />}
+            label="Lives"
+            onClose={onClose}
+          />
 
         </nav>
 
+        {/* FOOTER */}
+
+        <div
+          className="
+            px-6
+            pb-10
+            pt-4
+          "
+        >
+
+          <div
+            className="
+              rounded-3xl
+
+              border
+              border-red-900/40
+
+              bg-gradient-to-br
+              from-red-950/40
+              to-black
+
+              p-5
+            "
+          >
+
+            <p
+              className="
+                text-sm
+                text-gray-400
+                leading-relaxed
+              "
+            >
+              Explore builds,
+              patch notes,
+              guias, PvP,
+              notícias e
+              conteúdo da
+              comunidade
+              Black Desert.
+            </p>
+
+          </div>
+
+        </div>
+
       </aside>
+
     </>
+  );
+}
+
+function SidebarLink({
+  href,
+  icon,
+  label,
+  onClose,
+}: {
+  href: string;
+
+  icon: React.ReactNode;
+
+  label: string;
+
+  onClose: () => void;
+}) {
+
+  return (
+
+    <Link
+      href={href}
+      onClick={onClose}
+      className="
+        group
+
+        flex
+        items-center
+        gap-4
+
+        rounded-2xl
+
+        border
+        border-transparent
+
+        bg-[#111]/70
+
+        px-5
+        py-4
+
+        text-gray-300
+
+        hover:border-red-900
+        hover:bg-red-950/30
+        hover:text-white
+
+        transition-all
+        duration-300
+      "
+    >
+
+      <div
+        className="
+          text-red-500
+
+          group-hover:scale-110
+
+          transition
+        "
+      >
+        {icon}
+      </div>
+
+      <span
+        className="
+          text-lg
+          font-semibold
+        "
+      >
+        {label}
+      </span>
+
+    </Link>
   );
 }
