@@ -4,8 +4,6 @@ import { getPostBySlug } from "@/lib/posts/getPostBySlug";
 
 import { getRelatedPosts } from "@/lib/posts/getRelatedPosts";
 
-import { PostHero } from "@/components/posts/PostHero";
-
 import { LikeButton } from "@/components/posts/LikeButton";
 
 import { PostComments } from "@/components/comments/PostComments";
@@ -98,7 +96,7 @@ export default async function PostPage({
           "
         >
 
-          {/* IMAGEM */}
+          {/* IMAGE */}
 
           <img
             src={post.image}
@@ -253,9 +251,7 @@ export default async function PostPage({
                 className="
                   border-t
                   border-red-900/40
-
                   pt-8
-
                   flex
                   flex-col
                   gap-4
@@ -276,15 +272,11 @@ export default async function PostPage({
                       className="
                         w-10
                         h-10
-
                         rounded-2xl
-
                         bg-red-600
-
                         flex
                         items-center
                         justify-center
-
                         text-white
                         font-black
                       "
@@ -327,15 +319,11 @@ export default async function PostPage({
                       className="
                         w-10
                         h-10
-
                         rounded-2xl
-
                         bg-red-950
-
                         flex
                         items-center
                         justify-center
-
                         text-red-400
                         font-black
                       "
@@ -431,7 +419,6 @@ export default async function PostPage({
                     grid
                     grid-cols-1
                     md:grid-cols-2
-                    xl:grid-cols-3
                     gap-6
                   "
                 >
