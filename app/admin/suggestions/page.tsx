@@ -261,7 +261,7 @@ export default async function SuggestionsPage() {
 
       await fetch(
 
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/approve-suggestion`,
+        "/api/admin/approve-suggestion",
 
         {
           method: "POST",
@@ -316,7 +316,7 @@ export default async function SuggestionsPage() {
 
       await fetch(
 
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/reject-suggestion`,
+        "/api/admin/reject-suggestion",
 
         {
           method: "POST",
