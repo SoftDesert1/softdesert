@@ -13,11 +13,6 @@ export async function getRelatedPosts(
 
       .select("*")
 
-      .eq(
-        "category",
-        category
-      )
-
       .neq(
         "id",
         currentPostId
