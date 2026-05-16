@@ -4,16 +4,24 @@ from "next/server";
 import { createClient }
 from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabase =
+  createClient(
 
-export async function POST(req: Request) {
+    process.env
+      .NEXT_PUBLIC_SUPABASE_URL!,
+
+    process.env
+      .SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+export async function POST(
+  req: Request
+) {
 
   try {
 
-    const body = await req.json();
+    const body =
+      await req.json();
 
     const {
       suggestionId,
@@ -21,24 +29,37 @@ export async function POST(req: Request) {
 
     await supabase
 
-      .from("post_suggestions")
+      .from(
+        "post_suggestions"
+      )
 
       .update({
-        status: "rejected",
+
+        status:
+          "rejected",
+
       })
 
-      .eq("id", suggestionId);
+      .eq(
+        "id",
+        suggestionId
+      );
 
     return NextResponse.json({
+
       success: true,
+
     });
 
   } catch {
 
     return NextResponse.json(
+
       {
-        error: "Erro interno",
+        error:
+          "Erro interno",
       },
+
       {
         status: 500,
       }
