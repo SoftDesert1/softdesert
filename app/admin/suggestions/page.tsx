@@ -18,6 +18,11 @@ export default function SuggestionsPage() {
     setSuggestions,
   ] = useState<any[]>([]);
 
+  const [
+    loading,
+    setLoading,
+  ] = useState(false);
+
   useEffect(() => {
 
     fetchSuggestions();
@@ -28,6 +33,7 @@ export default function SuggestionsPage() {
 
     const {
       data,
+      error,
     } =
       await supabase
 
@@ -44,6 +50,13 @@ export default function SuggestionsPage() {
           }
         );
 
+    if (error) {
+
+      console.error(error);
+
+      return;
+    }
+
     setSuggestions(
       data || []
     );
@@ -53,57 +66,137 @@ export default function SuggestionsPage() {
     suggestionId: string
   ) {
 
-    await fetch(
+    try {
 
-      "/api/admin/approve-suggestion",
+      setLoading(true);
 
-      {
-        method: "POST",
+      const response =
+        await fetch(
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
+          "/api/admin/approve-suggestion",
 
-        body: JSON.stringify({
+          {
+            method: "POST",
 
-          suggestionId,
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
 
-          adminName:
-            "SoftDesert Team",
+            body: JSON.stringify({
 
-        }),
+              suggestionId,
+
+              adminName:
+                "SoftDesert Team",
+
+            }),
+          }
+        );
+
+      const result =
+        await response.json();
+
+      console.log(
+        "APPROVE RESULT:",
+        result
+      );
+
+      if (!response.ok) {
+
+        alert(
+          result.error ||
+          "Erro ao aprovar"
+        );
+
+        return;
       }
-    );
 
-    fetchSuggestions();
+      alert(
+        "Sugestão aprovada!"
+      );
+
+      await fetchSuggestions();
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Erro interno"
+      );
+
+    } finally {
+
+      setLoading(false);
+    }
   }
 
   async function rejectSuggestion(
     suggestionId: string
   ) {
 
-    await fetch(
+    try {
 
-      "/api/admin/reject-suggestion",
+      setLoading(true);
 
-      {
-        method: "POST",
+      const response =
+        await fetch(
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
+          "/api/admin/reject-suggestion",
 
-        body: JSON.stringify({
+          {
+            method: "POST",
 
-          suggestionId,
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
 
-        }),
+            body: JSON.stringify({
+
+              suggestionId,
+
+            }),
+          }
+        );
+
+      const result =
+        await response.json();
+
+      console.log(
+        "REJECT RESULT:",
+        result
+      );
+
+      if (!response.ok) {
+
+        alert(
+          result.error ||
+          "Erro ao rejeitar"
+        );
+
+        return;
       }
-    );
 
-    fetchSuggestions();
+      alert(
+        "Sugestão rejeitada!"
+      );
+
+      await fetchSuggestions();
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Erro interno"
+      );
+
+    } finally {
+
+      setLoading(false);
+    }
   }
 
   return (
@@ -336,6 +429,8 @@ export default function SuggestionsPage() {
 
                 <button
 
+                  disabled={loading}
+
                   onClick={() =>
                     approveSuggestion(
                       suggestion.id
@@ -356,12 +451,16 @@ export default function SuggestionsPage() {
 
                     text-white
                     font-bold
+
+                    disabled:opacity-50
                   "
                 >
                   Aprovar
                 </button>
 
                 <button
+
+                  disabled={loading}
 
                   onClick={() =>
                     rejectSuggestion(
@@ -383,6 +482,8 @@ export default function SuggestionsPage() {
 
                     text-white
                     font-bold
+
+                    disabled:opacity-50
                   "
                 >
                   Rejeitar
