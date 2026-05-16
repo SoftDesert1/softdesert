@@ -43,7 +43,32 @@ export default function LivesPage() {
           }
         );
 
-    setLives(data || []);
+    const liveList =
+  data || [];
+
+if (liveList.length === 0) {
+
+  setLives([]);
+
+  return;
+}
+
+const currentHour =
+  new Date().getHours();
+
+const rotation =
+  currentHour %
+  liveList.length;
+
+const rotatedLives = [
+
+  ...liveList.slice(rotation),
+
+  ...liveList.slice(0, rotation),
+
+];
+
+setLives(rotatedLives);
   }
 
   return (
