@@ -1,21 +1,53 @@
-import { supabase } from "@/lib/supabase/client";
+import { supabase }
+from "@/lib/supabase/client";
 
 export async function getRelatedPosts(
   category: string,
-  currentPostId: number
+  currentPostId: string
 ) {
 
-  const { data } = await supabase
+  const { data } =
+    await supabase
 
-    .from("posts")
+      .from("posts")
 
-    .select("*")
+      .select("*")
 
-    .eq("category", category)
+      .eq(
+        "category",
+        category
+      )
 
-    .neq("id", currentPostId)
+      .neq(
+        "id",
+        currentPostId
+      )
 
-    .limit(3);
+      .limit(3);
 
-  return data || [];
+  if (
+    data &&
+    data.length > 0
+  ) {
+
+    return data;
+  }
+
+  const {
+    data: fallbackPosts,
+  } =
+    await supabase
+
+      .from("posts")
+
+      .select("*")
+
+      .neq(
+        "id",
+        currentPostId
+      )
+
+      .limit(3);
+
+  return fallbackPosts || [];
 }
