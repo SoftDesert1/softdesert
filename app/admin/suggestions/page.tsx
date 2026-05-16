@@ -1,28 +1,110 @@
+"use client";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import { supabase }
 from "@/lib/supabase/client";
 
 export const dynamic =
   "force-dynamic";
 
-export default async function SuggestionsPage() {
+export default function SuggestionsPage() {
 
-  const {
-    data: suggestions,
-  } =
-    await supabase
+  const [
+    suggestions,
+    setSuggestions,
+  ] = useState<any[]>([]);
 
-      .from(
-        "post_suggestions"
-      )
+  useEffect(() => {
 
-      .select("*")
+    fetchSuggestions();
 
-      .order(
-        "created_at",
-        {
-          ascending: false,
-        }
-      );
+  }, []);
+
+  async function fetchSuggestions() {
+
+    const {
+      data,
+    } =
+      await supabase
+
+        .from(
+          "post_suggestions"
+        )
+
+        .select("*")
+
+        .order(
+          "created_at",
+          {
+            ascending: false,
+          }
+        );
+
+    setSuggestions(
+      data || []
+    );
+  }
+
+  async function approveSuggestion(
+    suggestionId: string
+  ) {
+
+    await fetch(
+
+      "/api/admin/approve-suggestion",
+
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+
+          suggestionId,
+
+          adminName:
+            "SoftDesert Team",
+
+        }),
+      }
+    );
+
+    fetchSuggestions();
+  }
+
+  async function rejectSuggestion(
+    suggestionId: string
+  ) {
+
+    await fetch(
+
+      "/api/admin/reject-suggestion",
+
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+
+          suggestionId,
+
+        }),
+      }
+    );
+
+    fetchSuggestions();
+  }
 
   return (
 
@@ -244,122 +326,69 @@ export default async function SuggestionsPage() {
 
               {/* ACTIONS */}
 
-<div
-  className="
-    flex
-    items-center
-    gap-4
-  "
->
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-4
+                "
+              >
 
-  {/* APROVAR */}
+                <button
 
-  <form
-    action={async () => {
+                  onClick={() =>
+                    approveSuggestion(
+                      suggestion.id
+                    )
+                  }
 
-      "use server";
+                  className="
+                    bg-green-600
 
-      await fetch(
+                    hover:bg-green-700
 
-        "/api/admin/approve-suggestion",
+                    transition
 
-        {
-          method: "POST",
+                    px-6
+                    py-3
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+                    rounded-2xl
 
-          body: JSON.stringify({
+                    text-white
+                    font-bold
+                  "
+                >
+                  Aprovar
+                </button>
 
-            suggestionId:
-              suggestion.id,
+                <button
 
-            adminName:
-              "SoftDesert Team",
+                  onClick={() =>
+                    rejectSuggestion(
+                      suggestion.id
+                    )
+                  }
 
-          }),
-        }
-      );
-    }}
-  >
+                  className="
+                    bg-red-600
 
-    <button
-      className="
-        bg-green-600
+                    hover:bg-red-700
 
-        hover:bg-green-700
+                    transition
 
-        transition
+                    px-6
+                    py-3
 
-        px-6
-        py-3
+                    rounded-2xl
 
-        rounded-2xl
+                    text-white
+                    font-bold
+                  "
+                >
+                  Rejeitar
+                </button>
 
-        text-white
-        font-bold
-      "
-    >
-      Aprovar
-    </button>
-
-  </form>
-
-  {/* REJEITAR */}
-
-  <form
-    action={async () => {
-
-      "use server";
-
-      await fetch(
-
-        "/api/admin/reject-suggestion",
-
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-
-          body: JSON.stringify({
-
-            suggestionId:
-              suggestion.id,
-
-          }),
-        }
-      );
-    }}
-  >
-
-    <button
-      className="
-        bg-red-600
-
-        hover:bg-red-700
-
-        transition
-
-        px-6
-        py-3
-
-        rounded-2xl
-
-        text-white
-        font-bold
-      "
-    >
-      Rejeitar
-    </button>
-
-  </form>
-
-</div>
+              </div>
 
             </div>
 
