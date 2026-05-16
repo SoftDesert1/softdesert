@@ -7,230 +7,374 @@ export default function AdminDashboard() {
 
   return (
 
+    <div
+      className="
+        max-w-7xl
+        mx-auto
+        space-y-10
+      "
+    >
+
+      {/* HEADER */}
+
       <div
         className="
-          max-w-7xl
-          mx-auto
-          space-y-10
+          relative
+          overflow-hidden
+
+          rounded-[32px]
+
+          border
+          border-red-900
+
+          bg-black/55
+          backdrop-blur-sm
+
+          px-8
+          py-10
         "
       >
 
-        {/* HEADER */}
+        <div
+          className="
+            absolute
+            inset-0
 
-        <div>
+            bg-gradient-to-r
+            from-red-950/10
+            to-transparent
+
+            pointer-events-none
+          "
+        />
+
+        <div className="relative z-10">
 
           <h1
             className="
-              text-6xl
+              text-5xl
               font-black
               text-white
             "
           >
-            Admin Dashboard
+            🛠️ Admin Dashboard
           </h1>
 
           <p
             className="
-              text-gray-400
               mt-4
-              text-xl
+              text-lg
+              text-gray-300
             "
           >
-            Gerencie o portal SoftDesert
+            Gerencie o portal
+            SoftDesert.
           </p>
 
         </div>
 
-        {/* GRID */}
+      </div>
 
-        <div
+      {/* GRID */}
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          xl:grid-cols-3
+          gap-8
+        "
+      >
+
+        {/* POSTS */}
+
+        <Link
+          href="/admin/posts"
           className="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-8
+            bg-black/55
+            backdrop-blur-sm
+
+            border
+            border-red-900
+
+            rounded-3xl
+
+            p-10
+
+            hover:border-red-500
+            hover:bg-red-950/20
+
+            transition-all
+            duration-300
+
+            group
           "
         >
 
-          {/* POSTS */}
+          <div className="space-y-4">
 
-          <Link
-            href="/admin/posts"
-            className="
-              bg-[#111]
-              border
-              border-red-900
-              rounded-3xl
-              p-10
-              hover:border-red-500
-              transition
-              group
-            "
-          >
-
-            <div className="space-y-4">
-
-              <div
-                className="
-                  text-5xl
-                "
-              >
-                📰
-              </div>
-
-              <h2
-                className="
-                  text-3xl
-                  font-black
-                  text-white
-                  group-hover:text-red-500
-                  transition
-                "
-              >
-                Posts
-              </h2>
-
-              <p className="text-gray-400">
-                Criar e editar notícias
-              </p>
-
+            <div
+              className="
+                text-5xl
+              "
+            >
+              📰
             </div>
 
-          </Link>
+            <h2
+              className="
+                text-3xl
+                font-black
+                text-white
 
-          {/* CLASSES */}
+                group-hover:text-red-500
 
-          <Link
-            href="/admin/classes"
-            className="
-              bg-[#111]
-              border
-              border-red-900
-              rounded-3xl
-              p-10
-              hover:border-red-500
-              transition
-              group
-            "
-          >
+                transition
+              "
+            >
+              Posts
+            </h2>
 
-            <div className="space-y-4">
+            <p className="text-gray-400">
 
-              <div className="text-5xl">
-                ⚔️
-              </div>
+              Criar e editar notícias
 
-              <h2
-                className="
-                  text-3xl
-                  font-black
-                  text-white
-                  group-hover:text-red-500
-                  transition
-                "
-              >
-                Classes
-              </h2>
+            </p>
 
-              <p className="text-gray-400">
-                Gerenciar classes do jogo
-              </p>
+          </div>
 
+        </Link>
+
+        {/* CLASSES */}
+
+        <Link
+          href="/admin/classes"
+          className="
+            bg-black/55
+            backdrop-blur-sm
+
+            border
+            border-red-900
+
+            rounded-3xl
+
+            p-10
+
+            hover:border-red-500
+            hover:bg-red-950/20
+
+            transition-all
+            duration-300
+
+            group
+          "
+        >
+
+          <div className="space-y-4">
+
+            <div className="text-5xl">
+              ⚔️
             </div>
 
-          </Link>
+            <h2
+              className="
+                text-3xl
+                font-black
+                text-white
 
-          <Link
-  href="/admin/lives"
-  className="
-    bg-[#111]
-    border
-    border-red-900
-    rounded-3xl
-    p-8
-    hover:border-red-500
-    transition
-    space-y-4
-  "
->
+                group-hover:text-red-500
 
-  <div
-    className="
-      text-5xl
-    "
-  >
-    📺
-  </div>
+                transition
+              "
+            >
+              Classes
+            </h2>
 
-  <div className="space-y-2">
+            <p className="text-gray-400">
 
-    <h2
-      className="
-        text-2xl
-        font-black
-        text-white
-      "
-    >
-      Lives
-    </h2>
+              Gerenciar classes do jogo
 
-    <p className="text-gray-400">
+            </p>
 
-      Gerencie streamers
-      e lives da comunidade
+          </div>
 
-    </p>
+        </Link>
 
-  </div>
+        {/* LIVES */}
 
-</Link>
+        <Link
+          href="/admin/lives"
+          className="
+            bg-black/55
+            backdrop-blur-sm
 
-          {/* SECTIONS */}
+            border
+            border-red-900
 
-          <Link
-            href="/admin/sections"
-            className="
-              bg-[#111]
-              border
-              border-red-900
-              rounded-3xl
-              p-10
-              hover:border-red-500
-              transition
-              group
-            "
-          >
+            rounded-3xl
 
-            <div className="space-y-4">
+            p-10
 
-              <div className="text-5xl">
-                📚
-              </div>
+            hover:border-red-500
+            hover:bg-red-950/20
 
-              <h2
-                className="
-                  text-3xl
-                  font-black
-                  text-white
-                  group-hover:text-red-500
-                  transition
-                "
-              >
-                Sections
-              </h2>
+            transition-all
+            duration-300
 
-              <p className="text-gray-400">
-                Conteúdo das classes
-              </p>
+            group
+          "
+        >
 
+          <div className="space-y-4">
+
+            <div
+              className="
+                text-5xl
+              "
+            >
+              📺
             </div>
 
-          </Link>
+            <h2
+              className="
+                text-3xl
+                font-black
+                text-white
 
-        </div>
+                group-hover:text-red-500
+
+                transition
+              "
+            >
+              Lives
+            </h2>
+
+            <p className="text-gray-400">
+
+              Gerencie streamers
+              e lives da comunidade
+
+            </p>
+
+          </div>
+
+        </Link>
+
+        {/* SECTIONS */}
+
+        <Link
+          href="/admin/sections"
+          className="
+            bg-black/55
+            backdrop-blur-sm
+
+            border
+            border-red-900
+
+            rounded-3xl
+
+            p-10
+
+            hover:border-red-500
+            hover:bg-red-950/20
+
+            transition-all
+            duration-300
+
+            group
+          "
+        >
+
+          <div className="space-y-4">
+
+            <div className="text-5xl">
+              📚
+            </div>
+
+            <h2
+              className="
+                text-3xl
+                font-black
+                text-white
+
+                group-hover:text-red-500
+
+                transition
+              "
+            >
+              Sections
+            </h2>
+
+            <p className="text-gray-400">
+
+              Conteúdo das classes
+
+            </p>
+
+          </div>
+
+        </Link>
+
+        {/* SUGESTÕES */}
+
+        <Link
+          href="/admin/suggestions"
+          className="
+            bg-black/55
+            backdrop-blur-sm
+
+            border
+            border-red-900
+
+            rounded-3xl
+
+            p-10
+
+            hover:border-red-500
+            hover:bg-red-950/20
+
+            transition-all
+            duration-300
+
+            group
+          "
+        >
+
+          <div className="space-y-4">
+
+            <div className="text-5xl">
+              📬
+            </div>
+
+            <h2
+              className="
+                text-3xl
+                font-black
+                text-white
+
+                group-hover:text-red-500
+
+                transition
+              "
+            >
+              Sugestões
+            </h2>
+
+            <p className="text-gray-400">
+
+              Posts sugeridos
+              pela comunidade
+
+            </p>
+
+          </div>
+
+        </Link>
 
       </div>
+
+    </div>
 
   );
 }
