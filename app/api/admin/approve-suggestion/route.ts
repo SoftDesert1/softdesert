@@ -28,6 +28,11 @@ export async function POST(
       adminName,
     } = body;
 
+    console.log(
+      "APPROVING:",
+      suggestionId
+    );
+
     const {
       data: suggestion,
       error,
@@ -51,6 +56,8 @@ export async function POST(
       error ||
       !suggestion
     ) {
+
+      console.error(error);
 
       return NextResponse.json(
 
@@ -80,51 +87,90 @@ export async function POST(
           ""
         );
 
-    await supabase
+    const {
+      error: insertError,
+    } =
+      await supabase
 
-      .from("posts")
+        .from("posts")
 
-      .insert({
+        .insert({
 
-        title:
-          suggestion.title,
+          title:
+            suggestion.title,
 
-        content:
-          suggestion.description,
+          content:
+            suggestion.description,
 
-        image:
-          suggestion.image,
+          image:
+            suggestion.image,
 
-        category:
-          suggestion.category,
+          category:
+            suggestion.category,
 
-        slug,
+          slug,
 
-        created_by:
-          adminName,
+          created_by:
+            adminName,
 
-        suggested_by:
-          suggestion.user_name,
+          suggested_by:
+            suggestion.user_name,
 
-      });
+        });
 
-    await supabase
+    if (insertError) {
 
-      .from(
-        "post_suggestions"
-      )
-
-      .update({
-
-        status:
-          "approved",
-
-      })
-
-      .eq(
-        "id",
-        suggestionId
+      console.error(
+        insertError
       );
+
+      return NextResponse.json(
+
+        {
+          error:
+            insertError.message,
+        },
+
+        {
+          status: 500,
+        }
+      );
+    }
+
+    const {
+      error: updateError,
+    } =
+      await supabase
+
+        .from(
+          "post_suggestions"
+        )
+
+        .delete()
+
+        .eq(
+          "id",
+          suggestionId
+        );
+
+    if (updateError) {
+
+      console.error(
+        updateError
+      );
+
+      return NextResponse.json(
+
+        {
+          error:
+            updateError.message,
+        },
+
+        {
+          status: 500,
+        }
+      );
+    }
 
     return NextResponse.json({
 
@@ -132,7 +178,9 @@ export async function POST(
 
     });
 
-  } catch {
+  } catch (error) {
+
+    console.error(error);
 
     return NextResponse.json(
 

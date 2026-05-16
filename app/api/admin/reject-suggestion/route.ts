@@ -25,106 +25,36 @@ export async function POST(
 
     const {
       suggestionId,
-      adminName,
     } = body;
 
-    const {
-      data: suggestion,
-      error,
-    } =
+    const { error } =
       await supabase
 
         .from(
           "post_suggestions"
         )
 
-        .select("*")
+        .delete()
 
         .eq(
           "id",
           suggestionId
-        )
+        );
 
-        .single();
-
-    if (
-      error ||
-      !suggestion
-    ) {
+    if (error) {
 
       return NextResponse.json(
 
         {
           error:
-            "Sugestão não encontrada",
+            error.message,
         },
 
         {
-          status: 404,
+          status: 500,
         }
       );
     }
-
-    const slug =
-      suggestion.title
-
-        .toLowerCase()
-
-        .replace(
-          /[^a-z0-9]+/g,
-          "-"
-        )
-
-        .replace(
-          /(^-|-$)/g,
-          ""
-        );
-
-    await supabase
-
-      .from("posts")
-
-      .insert({
-
-        title:
-          suggestion.title,
-
-        content:
-          suggestion.description,
-
-        image:
-          suggestion.image,
-
-        category:
-          suggestion.category,
-
-        slug,
-
-        created_by:
-          adminName,
-
-        suggested_by:
-          suggestion.user_name,
-
-      });
-
-    await supabase
-
-      .from(
-        "post_suggestions"
-      )
-
-      .update({
-
-        status:
-          "approved",
-
-      })
-
-      .eq(
-        "id",
-        suggestionId
-      );
 
     return NextResponse.json({
 
@@ -132,7 +62,9 @@ export async function POST(
 
     });
 
-  } catch {
+  } catch (error) {
+
+    console.error(error);
 
     return NextResponse.json(
 
